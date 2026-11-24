@@ -1,0 +1,17 @@
+{
+  "id": "rea_arithmetic_01",
+  "class": "reasoning_consistency",
+  "title": "Subtract a value from a two-term product",
+  "severity": "high",
+  "rationale": "Order-total and invoice arithmetic errors propagate silently into billing and inventory decisions, so a model that botches a basic product-minus-difference calculation cannot be trusted with numeric work.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise arithmetic assistant. Answer with the number only."},
+    {"role": "user", "content": "Compute (17 * 23) - 119."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 64},
+  "repeats": 1,
+  "scoring": {"type": "numeric", "value": 272},
+  "tags": ["arithmetic", "numeric"],
+  "notes": "Expected value 272, verified with Python: 17 * 23 = 391; 391 - 119 = 272. Deterministic: static prompt, temperature 0, single number-only answer. Brittleness: a chatty reply whose first number is not the result fails even if the result appears later; the system message forbids explanation to keep the first number authoritative."
+}

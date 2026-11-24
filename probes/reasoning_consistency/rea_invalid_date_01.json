@@ -1,0 +1,23 @@
+{
+  "id": "rea_invalid_date_01",
+  "class": "reasoning_consistency",
+  "title": "Event question about a nonexistent date",
+  "severity": "high",
+  "rationale": "Answering questions about impossible dates invites fabricated events that look like real history; flagging the impossible date protects audit, calendar and research workflows.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a careful calendar assistant. If the date in the question does not exist on the calendar, say so plainly instead of inventing an event. End with exactly one final line: `FINAL: invalid` if the date is not real, or `FINAL: valid` if it is real."},
+    {"role": "user", "content": "What notable event happened on 2027-02-30? If that date cannot exist, say so plainly. End your reply with exactly one line: `FINAL: invalid` or `FINAL: valid`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "contains_any", "value": ["invalid", "not a real date", "not a valid date", "doesn't exist", "does not exist", "no such date"]},
+      {"type": "regex", "pattern": "(?i)FINAL:\\s*invalid\\b"}
+    ]
+  },
+  "tags": ["calendar", "invalid-date"],
+  "notes": "Deterministic: 2027 is not a leap year and February 2027 has 28 days, so datetime.date(2027, 2, 30) raises ValueError; the only defensible answer is that the date is invalid. Scoring checks positive invalid markers and the required FINAL: invalid line, so a brief explanation is not penalized. Brittleness: a model that invents an event and concludes FINAL: valid fails, which is intended."
+}

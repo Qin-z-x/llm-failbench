@@ -1,0 +1,29 @@
+{
+  "id": "ml_hi_planets_01",
+  "class": "multilingual",
+  "title": "Hindi prompt: number of planets in the solar system",
+  "severity": "medium",
+  "rationale": "Hindi is under-represented in model evaluations; a wrong planet count in Devanagari output means students and educational products receive incorrect science answers.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "आप एक सटीक सहायक हैं। हिंदी में केवल एक छोटा वाक्य लिखें, कोई व्याख्या नहीं।"
+    },
+    {
+      "role": "user",
+      "content": "सौर मंडल में कितने ग्रह हैं?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?<!\\d)[8८](?!\\d)|आठ"
+  },
+  "tags": ["hindi", "devanagari", "numeric"],
+  "notes": "Language: Hindi (Devanagari). Expected answer token: 8, accepted as the ASCII digit 8, the Devanagari digit ८, or the word आठ (as in 8 ग्रह / आठ ग्रह). Deterministic: static prompt, temperature 0. Brittleness: an English reply using the word 'eight' fails because the system message requests Hindi; the digit branch keeps answers such as 8 ग्रह passing."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "if_no_digits_01",
+  "class": "instruction_following",
+  "title": "Answer a counting question with zero digit characters",
+  "severity": "medium",
+  "rationale": "Digit bans are used for redaction and speech-friendly text; models echo numerals out of habit, which defeats the constraint and slips past downstream digit filtering.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Answer only with the requested word; spell out all numbers and never explain."
+    },
+    {
+      "role": "user",
+      "content": "How many legs does a spider have? Write the count using English words and make sure your entire reply contains no digits."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)\\beight\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A[^\\d]*\\Z"
+      }
+    ]
+  },
+  "tags": ["negative-constraint", "digit-ban", "counting"],
+  "notes": "Deterministic: static prompt, temperature 0, whole-response digit anchor. Brittleness: a correct answer such as 'Spiders have eight legs.' passes while 'Eight (8)' fails by design; the positive unit requires the word eight, not the numeral."
+}

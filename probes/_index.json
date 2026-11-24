@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-11-24T02:22:24Z",
+  "total": 100,
+  "by_class": {
+    "hallucination": 10,
+    "instruction_following": 10,
+    "context_retrieval": 10,
+    "reasoning_consistency": 10,
+    "sycophancy": 10,
+    "structured_output": 10,
+    "multilingual": 10,
+    "safety_consistency": 10,
+    "agentic_reliability": 10,
+    "determinism_calibration": 10
+  },
+  "by_severity": {
+    "critical": 5,
+    "high": 34,
+    "medium": 43,
+    "low": 18
+  }
+}

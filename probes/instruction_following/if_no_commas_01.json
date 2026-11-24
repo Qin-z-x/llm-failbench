@@ -1,0 +1,42 @@
+{
+  "id": "if_no_commas_01",
+  "class": "instruction_following",
+  "title": "List three fruits on one line with no commas",
+  "severity": "low",
+  "rationale": "Comma-free single-line lists feed tag fields and keyword columns; an inserted comma splits one value into several and corrupts the record that downstream tools ingest.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Output only the requested list: no explanation and no punctuation other than the spaces between words."
+    },
+    {
+      "role": "user",
+      "content": "Reply with exactly three fruit names on a single line, separated by single spaces, in this order: kiwi mango papaya. Do not use commas anywhere and do not add any other text."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["kiwi", "mango", "papaya"]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\\Akiwi mango papaya\\s*\\Z"
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A[^,]*\\Z"
+      }
+    ]
+  },
+  "tags": ["format", "no-commas", "list"],
+  "notes": "Deterministic: static prompt, temperature 0, exact order and single-space separator. Brittleness: a trailing period or a comma after the last fruit fails the anchored line pattern even when the fruit names are correct."
+}

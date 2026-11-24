@@ -1,0 +1,29 @@
+{
+  "id": "ml_zh_days_01",
+  "class": "multilingual",
+  "title": "Chinese prompt: number of days in a week",
+  "severity": "high",
+  "rationale": "A wrong day count in a basic Chinese question silently corrupts scheduling and date arithmetic in Chinese-language products; this probe also anchors the cross-lingual consistency pair.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "你是一个精确的助手。请用简体中文、只用一个简短的句子回答，不要解释。"
+    },
+    {
+      "role": "user",
+      "content": "一个星期有几天？"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?<!\\d)[7７](?!\\d)|[七柒]"
+  },
+  "tags": ["chinese", "numeric", "cross-lingual"],
+  "notes": "Language: Simplified Chinese. Expected answer token: 7, accepted as the ASCII digit 7, the full-width digit ７, or the numeral 七 (as in 七天). Deterministic: static prompt, temperature 0. Brittleness: an English answer such as 'seven' fails because the system message requires Simplified Chinese; the same fact is asked in Spanish by ml_cross_lingual_pair_01."
+}

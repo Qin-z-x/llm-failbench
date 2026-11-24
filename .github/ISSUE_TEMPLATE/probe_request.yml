@@ -1,0 +1,120 @@
+name: Probe request
+description: Propose a new deterministic, judge-free probe for the FailBench corpus.
+title: "[probe] "
+labels: ["probe"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Probes are deterministic, judge-free checks. Read `docs/CONTRACT.md` section 5 (probe record schema) and section 6 (scoring semantics) before proposing one.
+
+        A good probe is:
+
+        - Fully static and self-contained: fixed messages, no external files, no templating, no randomness.
+        - Scored by mechanical rules only, with exactly one defensible correct answer or pass condition.
+        - Safe to publish: no PII, no real private data, no harmful payloads, no long copyrighted text.
+
+        Do not include secrets, API keys, tokens, or private data in this issue.
+  - type: dropdown
+    id: failure_class
+    attributes:
+      label: Failure class
+      description: The fixed failure-class id from docs/CONTRACT.md section 3.
+      options:
+        - "hallucination"
+        - "instruction_following"
+        - "context_retrieval"
+        - "reasoning_consistency"
+        - "sycophancy"
+        - "structured_output"
+        - "multilingual"
+        - "safety_consistency"
+        - "agentic_reliability"
+        - "determinism_calibration"
+    validations:
+      required: true
+  - type: input
+    id: probe_title
+    attributes:
+      label: Proposed probe title
+      description: Short and concrete, in the style of the existing probes, between 5 and 120 characters.
+      placeholder: "Recall a unique code buried at 50 percent of a long context"
+    validations:
+      required: true
+      min_length: 5
+  - type: textarea
+    id: failure_phenomenon
+    attributes:
+      label: Failure phenomenon
+      description: Describe the observable failure in 10 to 400 characters.
+    validations:
+      required: true
+      min_length: 10
+  - type: textarea
+    id: proposed_prompt
+    attributes:
+      label: Proposed prompt or messages
+      description: The exact static messages, in order, with roles. No external files and no templating.
+    validations:
+      required: true
+  - type: input
+    id: expected_pass_condition
+    attributes:
+      label: Expected pass condition
+      description: The single defensible answer or condition that a passing response must satisfy.
+    validations:
+      required: true
+  - type: dropdown
+    id: scoring_type
+    attributes:
+      label: Scoring type
+      description: One of the mechanical scoring types in docs/CONTRACT.md section 6.
+      options:
+        - "contains_all"
+        - "contains_any"
+        - "not_contains_any"
+        - "exact_match"
+        - "regex"
+        - "json_schema"
+        - "numeric"
+        - "all_of"
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How serious the failure is when a model exhibits it.
+      options:
+        - "critical"
+        - "high"
+        - "medium"
+        - "low"
+    validations:
+      required: true
+  - type: input
+    id: evidence_ids
+    attributes:
+      label: Related evidence IDs
+      description: Comma-separated existing evidence records that motivate this probe, or leave blank.
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale and why the scoring is unambiguous
+      description: Explain why the failure matters and why exactly one defensible pass condition exists, with no human or LLM judgement.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: Every item must be confirmed before submitting.
+      options:
+        - label: The prompt is fully static and self-contained (no external files or templating).
+          required: true
+        - label: Exactly one defensible correct answer or pass condition exists.
+          required: true
+        - label: No PII, no real private data, no harmful payloads, no long copyrighted text.
+          required: true
+        - label: This probe has not already been covered (I checked the probes directory).
+          required: true

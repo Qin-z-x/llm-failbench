@@ -1,0 +1,90 @@
+name: Bug report
+description: Report a defect in the runner, scoring, CLI, site, or docs.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+        Read `docs/CONTRACT.md` first, especially sections 4, 5, and 10, so this report matches the repository schemas and quality rules. Search existing issues before opening a new one.
+
+        Do not include API keys, tokens, private data, or unredacted logs. Redact secrets before posting. If you believe you found a security vulnerability, do not file it as a public issue: contact the maintainers through a private channel instead.
+  - type: input
+    id: version
+    attributes:
+      label: FailBench version or commit
+      description: The release version or the commit SHA you tested.
+      placeholder: "0.1.0 or commit SHA"
+    validations:
+      required: true
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Describe the behavior you observed and where you observed it.
+    validations:
+      required: true
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Exact commands, in order, starting from the repository root. Include full command lines.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: Expected behavior vs actual behavior
+      description: What did you expect, and what happened instead? Include the exact output or error message.
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which part of FailBench is affected?
+      options:
+        - "runner"
+        - "scoring"
+        - "CLI"
+        - "report/site"
+        - "probes"
+        - "evidence data"
+        - "docs"
+        - "packaging/publish"
+        - "CI"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and Python version
+      description: The platform and the Python version reported by python --version.
+      placeholder: "Windows 11, Python 3.13"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste relevant output. Remove API keys, tokens, credentials, and private data first.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Acknowledgements
+      description: Confirm the required items. The offline test suite item is optional if your environment cannot run it.
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I have not included secrets or API keys in this report or its logs.
+          required: true
+        - label: This is not a security vulnerability; security reports should go through a private channel, not a public issue.
+          required: true
+        - label: I ran the offline test suite (python -m unittest discover -s tests -t .) and pasted the result above, or this does not apply.
+          required: false

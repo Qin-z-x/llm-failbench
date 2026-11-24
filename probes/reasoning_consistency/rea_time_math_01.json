@@ -1,0 +1,17 @@
+{
+  "id": "rea_time_math_01",
+  "class": "reasoning_consistency",
+  "title": "Arrival time after adding a journey duration",
+  "severity": "medium",
+  "rationale": "Travel and logistics plans depend on correct clock arithmetic; a wrong arrival time makes crews ready late or early and cascades through downstream schedules.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise time assistant. Reason carefully, then end with exactly one final line of the form `FINAL: HH:MM` using a 24-hour clock."},
+    {"role": "user", "content": "A train departs at 10:45 and the journey takes 3 hours 25 minutes. What is the arrival time? Give it in 24-hour format and end your reply with exactly one line `FINAL: HH:MM`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "(?i)FINAL:\\s*14:10\\b"},
+  "tags": ["time", "arithmetic"],
+  "notes": "Expected 14:10, verified with Python: datetime(2026, 1, 1, 10, 45) + timedelta(hours=3, minutes=25) = 14:10. Deterministic: static prompt, temperature 0, and the sum does not cross midnight. Brittleness: a 12-hour answer such as FINAL: 2:10 fails by design, and only the FINAL line is graded."
+}

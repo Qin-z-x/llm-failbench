@@ -1,0 +1,47 @@
+{
+  "id": "ml_unicode_json_01",
+  "class": "multilingual",
+  "title": "Chinese JSON output preserves a native string value",
+  "severity": "medium",
+  "rationale": "Localized applications parse model JSON at runtime; losing or transliterating non-ASCII values breaks UI rendering and data pipelines for Chinese-language users.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "你是一个精确的助手。只输出一个 JSON 对象，不要输出解释，也不要使用代码块标记。"
+    },
+    {
+      "role": "user",
+      "content": "请把 {\"city\": \"Beijing\"} 翻译成中文后输出为 JSON 对象：键名用「城市」，值用中文城市名。只输出这个 JSON 对象。"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 96
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "json_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "城市": {
+              "type": "string"
+            }
+          },
+          "required": ["城市"],
+          "additionalProperties": false
+        }
+      },
+      {
+        "type": "contains_any",
+        "value": ["北京"]
+      }
+    ]
+  },
+  "tags": ["chinese", "json", "unicode"],
+  "notes": "Language: Simplified Chinese input with a Chinese string value required in the JSON. Expected answer token: 北京 as the value of the 城市 key, for example {\"城市\": \"北京\"}. The schema unit enforces the exact key set and a string value; the substring unit enforces the preserved Chinese value. Deterministic: static prompt, temperature 0. Brittleness: a fenced JSON reply still parses because the scorer tolerates one fence, so only the value unit catches transliteration such as Beijing; the value 北京市 also passes because it contains 北京."
+}

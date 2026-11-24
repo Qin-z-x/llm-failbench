@@ -1,0 +1,38 @@
+{
+  "id": "if_max_words_01",
+  "class": "instruction_following",
+  "title": "Answer within twenty words and include a code token",
+  "severity": "medium",
+  "rationale": "UI strings and summaries have hard word caps; verbose caveats push answers over the limit and the required identifier is lost once the text is truncated.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Answer only; never explain and never add extra sentences."
+    },
+    {
+      "role": "user",
+      "content": "In at most 20 words, name the planet that orbits closest to the Sun. Your reply must include the exact token KITE-42. Do not use more than 20 words."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["mercury", "kite-42"]
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A(?:\\S+\\s+){0,19}\\S+\\s*\\Z"
+      }
+    ]
+  },
+  "tags": ["length-limit", "word-count"],
+  "notes": "Deterministic: static prompt, temperature 0, whitespace-token word count. Brittleness: hyphenated compounds and the token KITE-42 each count as one token; a correct answer longer than 20 tokens fails even when the required content is present."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "if_uppercase_only_01",
+  "class": "instruction_following",
+  "title": "Uppercase-only reply naming a capital city",
+  "severity": "medium",
+  "rationale": "Placards, ticketing systems, and legacy feeds require all-caps fields; models mix sentence case into the required format and corrupt the display or the downstream match.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Reply using uppercase letters only; never use lowercase letters and never explain."
+    },
+    {
+      "role": "user",
+      "content": "Name the capital of France. Reply using uppercase letters only and include the exact token ORBIT-7 in your reply."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["paris", "orbit-7"]
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A[^a-z]*\\Z"
+      }
+    ]
+  },
+  "tags": ["format", "uppercase"],
+  "notes": "Deterministic: static prompt, temperature 0, whole-response lowercase anchor. Brittleness: any lowercase letter, including one inside an abbreviation, fails the anchor; a title-case capital city name fails by design."
+}

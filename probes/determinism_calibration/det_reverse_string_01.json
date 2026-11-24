@@ -1,0 +1,32 @@
+{
+  "id": "det_reverse_string_01",
+  "class": "determinism_calibration",
+  "title": "Reverse the word failbench exactly",
+  "severity": "low",
+  "rationale": "Character-level transforms are a canonical tokenization failure; an unstable reversal signals brittle string handling for identifiers, checksums and test fixtures.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise text assistant. Reply with the reversed string only, with no other text and no quotation marks."
+    },
+    {
+      "role": "user",
+      "content": "Reverse the string failbench. Reply with the reversed string only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?i)\\bhcnebliaf\\b"
+  },
+  "tags": [
+    "strings",
+    "tokenization"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one fixed token. Expected value hcnebliaf, verified in Python as failbench[::-1]; note that the common transposition hcnbeliaf is wrong and fails. Brittleness: a response that reverses at token or syllable level yields a different string and fails, while a correct reversed token embedded in a short sentence is tolerated because the pass condition is that token appearing."
+}

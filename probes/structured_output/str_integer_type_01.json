@@ -1,0 +1,23 @@
+{
+  "id": "str_integer_type_01",
+  "class": "structured_output",
+  "title": "Integer field that rejects string and decimal forms",
+  "severity": "medium",
+  "rationale": "Numeric APIs and retry schedulers reject or misparse string-typed integers; a silently stringified retry count breaks job accounting and backoff logic.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a job-record formatter. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "The job reported 42 retries. Return exactly this JSON object with no extra keys:\n{\"retries\": 42}\n\nThe value 42 must be a JSON integer, not a string and not a decimal. Output only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "object", "properties": {"retries": {"type": "integer"}}, "required": ["retries"], "additionalProperties": false}},
+      {"type": "regex", "pattern": "\"retries\"\\s*:\\s*42\\b"}
+    ]
+  },
+  "tags": ["json", "type-strictness"],
+  "notes": "Deterministic: static prompt, temperature 0; a single fixed integer is requested. The schema integer type rejects both \"42\" and 42.0 because the parser yields a str or a float, and the regex pins the value 42. Extraction accepts a bare JSON value or one fenced block. Brittleness: a correctly typed wrong integer is caught by the regex, while a correct value written as 42e0 fails the integer type."
+}

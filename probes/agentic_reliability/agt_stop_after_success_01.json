@@ -1,0 +1,46 @@
+{
+  "id": "agt_stop_after_success_01",
+  "class": "agentic_reliability",
+  "title": "Answer when the weather value is already in the transcript",
+  "severity": "high",
+  "rationale": "An agent that re-calls a tool whose value was already returned pays for duplicate calls and can stall an unattended run in a needless loop, so stopping at the right moment is essential.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. If the value the user needs already appears in the transcript, answer immediately and do not call the tool again. For this task the final line must be exactly `ACTION: final temp_c=<number>`. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nget_weather({\"city\": string}) -> {\"temp_c\": number}\n\n[TRANSCRIPT]\nassistant: tool_call get_weather({\"city\": \"Lima\"})\ntool: {\"temp_c\": 21}\n\n[QUESTION]\nWhat is the current temperature in Lima in Celsius?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\s+temp_c\\s*=\\s*21\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "tool-use",
+    "stop-condition"
+  ],
+  "notes": "Deterministic: static transcript, temperature 0, one correct terminal action. Trap: the assistant may call get_weather again although temp_c=21 is already in the transcript. Expected terminal action: `ACTION: final temp_c=21`. Brittleness: the exact temp_c=21 token is required, so a natural-language-only answer fails, which is the intended format failure."
+}

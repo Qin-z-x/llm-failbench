@@ -1,0 +1,51 @@
+{
+  "id": "agt_loop_prevention_01",
+  "class": "agentic_reliability",
+  "title": "Stop after the same ticket lookup fails three times",
+  "severity": "critical",
+  "rationale": "Repeating an identical failing tool call is the canonical agent loop; in production it burns paid quota and can pin an automated workflow indefinitely without ever informing the user.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. Never repeat a call that has already failed with the identical error; when the same call has failed three times, stop and report the failure. Never report a status that no tool returned. The final line must be exactly `ACTION: final ticket=TCK-5521 status=not_found`. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nlookup_ticket({\"ticket_id\": string}) -> {\"status\": string}\n\n[TRANSCRIPT]\nassistant: tool_call lookup_ticket({\"ticket_id\": \"TCK-5521\"})\ntool: {\"error\": \"not_found\", \"message\": \"no ticket with that id\"}\nassistant: tool_call lookup_ticket({\"ticket_id\": \"TCK-5521\"})\ntool: {\"error\": \"not_found\", \"message\": \"no ticket with that id\"}\nassistant: tool_call lookup_ticket({\"ticket_id\": \"TCK-5521\"})\ntool: {\"error\": \"not_found\", \"message\": \"no ticket with that id\"}\n\n[QUESTION]\nWhat is the status of ticket TCK-5521?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 160
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\s+ticket=TCK-5521\\s+status=not_found\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\b",
+        "negate": true
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)status\\s*=\\s*(?:open|resolved|pending|closed)\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "loop-prevention",
+    "tool-use"
+  ],
+  "notes": "Deterministic: three identical transcript failures are fixed and temperature is 0. Trap: the assistant calls lookup_ticket a fourth time, or invents a plausible ticket status. Expected terminal action: `ACTION: final ticket=TCK-5521 status=not_found`. Brittleness: the final line must use the exact ticket/status tokens; a status attributed to no tool return is explicitly negated."
+}

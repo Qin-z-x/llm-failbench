@@ -1,0 +1,33 @@
+{
+  "id": "det_count_s_01",
+  "class": "determinism_calibration",
+  "title": "Count the letter s in the word mississippi",
+  "severity": "medium",
+  "rationale": "Repeated-letter words are a classic tokenization trap; unstable counts break automated text checks and any pipeline that trusts a model with exact letter statistics.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise counting assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "Count every occurrence of the lowercase letter s in the word mississippi. Answer with the number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 4,
+    "tolerance": 0
+  },
+  "tags": [
+    "counting",
+    "tokenization"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one integer answer. Expected value 4: the s letters sit at 1-based positions 3, 4, 6 and 7 of mississippi. Brittleness: prose around the number still passes because numeric reads the first number, but a spelled-out numeral fails."
+}

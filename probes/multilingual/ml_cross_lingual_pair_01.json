@@ -1,0 +1,29 @@
+{
+  "id": "ml_cross_lingual_pair_01",
+  "class": "multilingual",
+  "title": "Spanish counterpart: number of days in a week",
+  "severity": "high",
+  "rationale": "Paired with ml_zh_days_01, this detects language-specific inconsistency: the same basic fact must get the same answer in Spanish and in Chinese, or localization is unreliable.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "Eres un asistente preciso. Responde en español con una sola frase corta y sin explicaciones."
+    },
+    {
+      "role": "user",
+      "content": "¿Cuántos días tiene una semana?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?<!\\d)[7７](?!\\d)|\\bsiete\\b"
+  },
+  "tags": ["spanish", "numeric", "cross-lingual"],
+  "notes": "Language: Spanish. Expected answer token: 7, accepted as the digit 7 (as in 7 días) or the word siete. Paired with ml_zh_days_01: both ask the same fact (days per week) and expect 7, so a model that answers correctly in one language and incorrectly in the other is exposed. Deterministic: static prompt, temperature 0. Brittleness: the word-boundary guard stops diecisiete from matching siete; an English answer such as 'seven' fails because the system message requires Spanish."
+}

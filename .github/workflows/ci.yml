@@ -1,0 +1,184 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONIOENCODING: "utf-8"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show Python version
+        run: python -V
+
+      - name: Validate probes and evidence schema
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m failbench.schema
+
+      - name: Run contract gate
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python scripts/validate/check_contract.py --strict
+
+      - name: Run unit tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m unittest discover -s tests -t . -v
+
+      - name: Validate corpus via CLI
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m failbench validate --strict
+
+      - name: Mock demo run A
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m failbench run --provider mock --demo --out "$RUNNER_TEMP/demo1"
+
+      - name: Mock demo run B (determinism)
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m failbench run --provider mock --demo --out "$RUNNER_TEMP/demo2"
+
+      - name: Compare determinism (statuses + response hashes)
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import pathlib
+          import sys
+
+          base = pathlib.Path(os.environ.get("RUNNER_TEMP") or ".")
+
+
+          def load(name):
+              path = base / name / "results.json"
+              try:
+                  with open(path, encoding="utf-8") as handle:
+                      return json.load(handle)
+              except (OSError, ValueError) as exc:
+                  sys.exit(f"cannot read {path}: {exc}")
+
+
+          run_a = load("demo1")
+          run_b = load("demo2")
+          problems = []
+          counts_a = run_a.get("counts") or {}
+          counts_b = run_b.get("counts") or {}
+          for key in ("probes", "pass", "fail", "error"):
+              if counts_a.get(key) != counts_b.get(key):
+                  problems.append(f"counts.{key}: {counts_a.get(key)!r} != {counts_b.get(key)!r}")
+
+
+          def probe_map(run):
+              mapping = {}
+              for item in run.get("probes") or []:
+                  if isinstance(item, dict) and item.get("probe_id"):
+                      mapping[item["probe_id"]] = (
+                          item.get("status"),
+                          item.get("response_sha256"),
+                      )
+              return mapping
+
+
+          map_a = probe_map(run_a)
+          map_b = probe_map(run_b)
+          for probe_id in sorted(set(map_a) | set(map_b)):
+              if map_a.get(probe_id) != map_b.get(probe_id):
+                  problems.append(f"{probe_id}: {map_a.get(probe_id)!r} != {map_b.get(probe_id)!r}")
+          for problem in problems:
+              print("MISMATCH:", problem)
+          if problems:
+              sys.exit(f"determinism check failed: {len(problems)} mismatch(es)")
+          print(f"determinism OK: {len(map_a)} probes identical (counts: {counts_a})")
+          PY
+
+      - name: Generate offline report site
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python -m failbench report --results "$RUNNER_TEMP/demo1" --out "$RUNNER_TEMP/site" --results-md "$RUNNER_TEMP/RESULTS.md"
+
+      - name: Check generated site sanity
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+          import re
+          import sys
+
+          index = pathlib.Path(os.environ.get("RUNNER_TEMP") or ".") / "site" / "index.html"
+          try:
+              raw = index.read_bytes()
+          except OSError as exc:
+              sys.exit(f"cannot read {index}: {exc}")
+          text = raw.decode("utf-8", "replace")
+          problems = []
+          if "No live model endpoint was available during this build" not in text:
+              problems.append("missing honesty marker: no live model endpoint disclosure")
+          if "mock provider" not in text.lower():
+              problems.append("missing mock-provider disclosure")
+          # Only external RESOURCE loads are forbidden. Plain <a href="http...">
+          # links to evidence sources are required by the contract and allowed.
+          for label, pattern in (
+              ('external <script src="http...">', r"""<script\b[^>]*\bsrc\s*=\s*["']?\s*https?://"""),
+              ('external <link href="http...">', r"""<link\b[^>]*\bhref\s*=\s*["']?\s*https?://"""),
+              ("fetch() call", r"fetch\("),
+              ("XMLHttpRequest", r"XMLHttpRequest"),
+          ):
+              if re.search(pattern, text, re.IGNORECASE):
+                  problems.append(f"forbidden external resource loading: {label}")
+          if len(raw) >= 3 * 1024 * 1024:
+              problems.append(f"index.html too large: {len(raw)} bytes (limit 3 MB)")
+          for problem in problems:
+              print("PROBLEM:", problem)
+          if problems:
+              sys.exit(f"site sanity check failed: {len(problems)} problem(s)")
+          print(f"site sanity OK: {len(raw)} bytes, no external references loaded")
+          PY
+
+      - name: Run full offline validation suite
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONIOENCODING: "utf-8"
+        run: python scripts/validate/run_all.py

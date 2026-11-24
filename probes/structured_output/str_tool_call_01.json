@@ -1,0 +1,40 @@
+{
+  "id": "str_tool_call_01",
+  "class": "structured_output",
+  "title": "Tool-call arguments object with enum and typed fields",
+  "severity": "high",
+  "rationale": "Agent frameworks dispatch tool calls from JSON arguments; a wrong tool name or a stringified priority argument triggers the wrong action instead of a clean invocation.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a tool-call formatter. Reply with one JSON tool call and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Available tools:\n- create_ticket(order_id: string, priority: integer)\n- close_ticket(order_id: string)\n\nRequest: open a support ticket for order KX-555 with priority 2.\n\nReturn exactly this JSON shape, using one of the two tool names, no extra keys:\n{\"tool\": \"<create_ticket|close_ticket>\", \"arguments\": {\"order_id\": \"<order id>\", \"priority\": <integer>}}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 256},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {
+        "type": "object",
+        "properties": {
+          "tool": {"type": "string", "enum": ["create_ticket", "close_ticket"]},
+          "arguments": {
+            "type": "object",
+            "properties": {
+              "order_id": {"type": "string"},
+              "priority": {"type": "integer"}
+            },
+            "required": ["order_id", "priority"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["tool", "arguments"],
+        "additionalProperties": false
+      }},
+      {"type": "contains_all", "value": ["create_ticket", "KX-555"]},
+      {"type": "regex", "pattern": "\"priority\"\\s*:\\s*2\\b"}
+    ]
+  },
+  "tags": ["json", "tool-call"],
+  "notes": "Deterministic: static prompt, temperature 0; exactly one requested action (open a ticket for KX-555 at priority 2). Extraction accepts a bare JSON value or one fenced block; the regex units still match inside a fence. Brittleness: close_ticket is schema-valid because it is in the enum, so contains_all pins the requested tool and order id; a model that closes the ticket instead of creating it fails."
+}

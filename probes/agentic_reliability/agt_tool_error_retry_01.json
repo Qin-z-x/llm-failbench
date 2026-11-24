@@ -1,0 +1,54 @@
+{
+  "id": "agt_tool_error_retry_01",
+  "class": "agentic_reliability",
+  "title": "Retry a failed currency call once with the hinted code",
+  "severity": "high",
+  "rationale": "Repeating an invalid call with the same argument is a classic agent loop, while abandoning after one bad argument loses the user's transfer; a bounded corrected retry is required.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. The transcript ends immediately after a tool error, so your reply is the next turn. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. Retry policy: when a tool error carries an actionable hint, retry at most once with the corrected argument; when the hint is not actionable, stop and report the failure as ACTION: final. Never repeat the exact same failing call. Send the full arguments object on the retry. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nconvert_currency({\"amount\": number, \"from\": string, \"to\": string}) -> {\"amount\": number}\n\n[TRANSCRIPT]\nassistant: tool_call convert_currency({\"amount\": 100, \"from\": \"EUROS\", \"to\": \"USD\"})\ntool: {\"error\": \"invalid_currency\", \"hint\": \"from and to must be ISO 4217 three-letter codes; use 'EUR' for euros\"}\n\n[QUESTION]\nConvert 100 euros to US dollars. Emit the single next action line only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 192
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\s+convert_currency\\s*\\("
+      },
+      {
+        "type": "regex",
+        "pattern": "\"from\"\\s*:\\s*\"EUR\""
+      },
+      {
+        "type": "regex",
+        "pattern": "\"to\"\\s*:\\s*\"USD\""
+      },
+      {
+        "type": "regex",
+        "pattern": "\"amount\"\\s*:\\s*100\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "\"from\"\\s*:\\s*\"EUROS\"",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "tool-use",
+    "error-recovery"
+  ],
+  "notes": "Deterministic: static error transcript, temperature 0, one actionable hint. Trap: the assistant may replay the same invalid EUROS argument instead of using the hint. Expected terminal action: a retry tool_call with from=EUR, to=USD, amount=100. Brittleness: the scorer expects JSON-style double-quoted arguments, matching the [TOOLS] contract; a prose-only retry fails."
+}

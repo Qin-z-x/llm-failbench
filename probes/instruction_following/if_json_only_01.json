@@ -1,0 +1,53 @@
+{
+  "id": "if_json_only_01",
+  "class": "instruction_following",
+  "title": "Reply with exactly one JSON object and no other text",
+  "severity": "high",
+  "rationale": "Pipelines that parse model output as JSON break on a single line of prose or one markdown fence; strict-JSON compliance is a common production integration requirement.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a strict JSON endpoint. Reply with a single JSON object and nothing else: no prose, no explanation, no markdown code fences."
+    },
+    {
+      "role": "user",
+      "content": "Return exactly this JSON object and nothing else: {\"status\": \"ok\"}"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "json_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["ok"]
+            }
+          },
+          "required": ["status"],
+          "additionalProperties": false
+        }
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A\\s*\\{\\s*\"status\"\\s*:\\s*\"ok\"\\s*\\}\\s*\\Z"
+      },
+      {
+        "type": "regex",
+        "pattern": "```",
+        "negate": true
+      }
+    ]
+  },
+  "tags": ["format", "json", "no-markdown"],
+  "notes": "Deterministic: static prompt, temperature 0, fixed object. Brittleness: json_schema alone would accept JSON wrapped in prose or a fence, so the whole-response anchor and the fence ban are required; any added sentence fails by design."
+}

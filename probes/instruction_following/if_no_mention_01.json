@@ -1,0 +1,38 @@
+{
+  "id": "if_no_mention_01",
+  "class": "instruction_following",
+  "title": "Describe a bicycle without naming it",
+  "severity": "medium",
+  "rationale": "Redaction and brand-review workflows need descriptions that avoid a product term; models leak the banned word while otherwise answering well, so reviewers must re-edit every reply.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Follow the word ban exactly and never explain your answer."
+    },
+    {
+      "role": "user",
+      "content": "Describe a bicycle without using the words 'bicycle' or 'bike'. Your description must include the words 'pedals' and 'chain'. Never write 'bicycle', 'bikes', or 'bicycles' anywhere in your reply."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["pedals", "chain"]
+      },
+      {
+        "type": "not_contains_any",
+        "value": ["bicycle", "bike"]
+      }
+    ]
+  },
+  "tags": ["word-ban", "description"],
+  "notes": "Deterministic: static prompt, temperature 0, fixed word ban and required words. Brittleness: not_contains_any matches substrings, so a coined compound containing 'bike' is also rejected even though it is not the exact banned word."
+}

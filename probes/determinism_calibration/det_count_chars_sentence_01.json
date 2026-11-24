@@ -1,0 +1,33 @@
+{
+  "id": "det_count_chars_sentence_01",
+  "class": "determinism_calibration",
+  "title": "Count characters in a fixed short sentence",
+  "severity": "medium",
+  "rationale": "Character accounting underlies fixed-width formats and validation rules; an unstable count breaks parsers that assume model output is exactly calibrated.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise counting assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "Count the characters in the following sentence, counting every character inside the quotation marks including spaces and the final period: \"A calm river bends slowly.\" Answer with the number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 26,
+    "tolerance": 0
+  },
+  "tags": [
+    "counting",
+    "strings"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one integer answer. Expected value 26, computed in Python: A calm river bends slowly. is 21 letters + 4 spaces + 1 final period = 26 characters. Brittleness: a counter that excludes spaces (22) or the final period (25) fails; the prompt states the counting convention explicitly so the pass condition stays unambiguous."
+}

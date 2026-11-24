@@ -1,0 +1,29 @@
+{
+  "id": "ml_translate_thanks_01",
+  "class": "multilingual",
+  "title": "Translate 'Thank you' into Simplified Chinese",
+  "severity": "low",
+  "rationale": "Translation is a high-volume use case; returning the English original or a Traditional-script rendering breaks localization and customer-facing messages.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "你是一个精确的翻译助手。只输出译文，不要解释。"
+    },
+    {
+      "role": "user",
+      "content": "把英文短语「Thank you」翻译成简体中文，只输出译文。"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "contains_any",
+    "value": ["谢谢", "多谢", "感谢"]
+  },
+  "tags": ["chinese", "translation"],
+  "notes": "Language: the output must be Simplified Chinese; the source phrase is English by design. Expected answer token: 谢谢, with 谢谢你 accepted automatically because it contains 谢谢, and 多谢/感谢 accepted as common courteous renderings. Deterministic: static prompt, temperature 0. Brittleness: a Traditional Chinese rendering 謝謝 fails on purpose because the prompt asks for Simplified Chinese; an untranslated English reply fails."
+}

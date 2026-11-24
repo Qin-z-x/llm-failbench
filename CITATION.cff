@@ -1,0 +1,32 @@
+# Citation File Format 1.2.0 metadata for FailBench.
+repository-code: "https://github.com/Qin-z-x/llm-failbench"
+
+cff-version: "1.2.0"
+message: "If you use FailBench, please cite this repository."
+title: FailBench
+abstract: >-
+  FailBench is an open benchmark and evidence atlas for LLM failure modes. It
+  ships deterministic probes across ten failure classes, scored with mechanical
+  rules instead of LLM judges, and a curated atlas of publicly reported
+  failures. Every atlas record carries a real public source URL; the probe and
+  evidence corpora share the same ten-class vocabulary, while per-probe
+  evidence ids are reserved for a future release. The kit includes a runner for
+  any OpenAI-compatible endpoint, a CI regression gate, and a self-contained
+  dashboard. Version 0.1.0 is a
+  pre-release: the bundled demo run uses an offline mock provider rather than
+  live model calls, and users run the kit on their own endpoint to obtain real
+  measurements.
+authors:
+  - name: "llm-failbench contributors"
+version: "0.1.0"
+date-released: "2026-11-24"
+keywords:
+  - large language models
+  - evaluation benchmark
+  - failure modes
+  - hallucination
+  - judge-free evaluation
+  - determinism
+  - regression testing
+license: "MIT"
+type: software

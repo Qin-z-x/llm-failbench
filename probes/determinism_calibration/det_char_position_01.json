@@ -1,0 +1,33 @@
+{
+  "id": "det_char_position_01",
+  "class": "determinism_calibration",
+  "title": "Locate the letter b in the word failbench",
+  "severity": "low",
+  "rationale": "Off-by-one indexing errors silently corrupt string slicing and offset calculations, so a model's positional arithmetic must stay stable across repeated calls.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "In the word failbench, what is the position of the letter b when counting from the left with the first letter at position 1? Answer with the number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 5,
+    "tolerance": 0
+  },
+  "tags": [
+    "indexing",
+    "counting"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one integer answer. Expected value 5: failbench is f-a-i-l-b-e-n-c-h, so b is the fifth character when counted from 1. Brittleness: a 0-based answer of 4 fails, which is the intended off-by-one failure mode."
+}

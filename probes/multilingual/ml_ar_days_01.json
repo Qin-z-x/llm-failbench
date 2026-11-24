@@ -1,0 +1,29 @@
+{
+  "id": "ml_ar_days_01",
+  "class": "multilingual",
+  "title": "Arabic prompt: number of days in a week",
+  "severity": "medium",
+  "rationale": "Arabic-language users often get English or transliterated output for simple numeric questions; a wrong day count in Arabic breaks calendar features in localized apps.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "أنت مساعد دقيق. أجب باللغة العربية بجملة قصيرة واحدة فقط، دون أي شرح."
+    },
+    {
+      "role": "user",
+      "content": "كم عدد أيام الأسبوع؟"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?<!\\d)[7٧](?!\\d)|سبع(?:ة|ه)?|seven"
+  },
+  "tags": ["arabic", "numeric", "script"],
+  "notes": "Language: Arabic. Expected answer token: 7, accepted as the ASCII digit 7, the Arabic-Indic digit ٧, the word forms سبعة/سبعه/سبع, or the English word seven, so a legitimate rendering is never scored as a failure. Deterministic: static prompt, temperature 0. Brittleness: fully diacritized Arabic (for example with vowel marks inside the word) is not matched by the word branch, though an answer containing the digit still passes."
+}

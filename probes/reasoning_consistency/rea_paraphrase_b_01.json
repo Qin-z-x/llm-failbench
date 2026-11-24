@@ -1,0 +1,17 @@
+{
+  "id": "rea_paraphrase_b_01",
+  "class": "reasoning_consistency",
+  "title": "Pallet count word problem, phrasing B",
+  "severity": "medium",
+  "rationale": "If the same stock question phrased differently gives a different total, downstream inventory and shipping decisions inherit an inconsistency nobody can audit.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise arithmetic assistant. Reason carefully, then end with exactly one final line of the form `FINAL: <number>`."},
+    {"role": "user", "content": "Each pallet carries two dozen boxes. A warehouse receives seven pallets. How many boxes arrive in total? End your reply with exactly one line `FINAL: <number>`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "(?i)FINAL:\\s*168\\b"},
+  "tags": ["paraphrase", "arithmetic"],
+  "notes": "Expected 168, verified with Python: 2 * 12 = 24 per pallet, 7 * 24 = 168. This is phrasing B of the paraphrase pair with rea_paraphrase_a_01: the same product stated with different wording and unit nouns, so a consistent model must answer identically. Deterministic: static prompt, temperature 0. Brittleness: only the FINAL line is graded."
+}

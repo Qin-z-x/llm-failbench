@@ -1,0 +1,17 @@
+{
+  "id": "rea_paraphrase_a_01",
+  "class": "reasoning_consistency",
+  "title": "Crate count word problem, phrasing A",
+  "severity": "medium",
+  "rationale": "Paraphrase instability means the same logistics question can yield different totals depending on wording; inconsistent totals corrupt stock planning and invoicing.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise arithmetic assistant. Reason carefully, then end with exactly one final line of the form `FINAL: <number>`."},
+    {"role": "user", "content": "A wholesaler orders seven shipping crates. Each crate holds 24 boxes. How many boxes are in the delivery? End your reply with exactly one line `FINAL: <number>`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "(?i)FINAL:\\s*168\\b"},
+  "tags": ["paraphrase", "arithmetic"],
+  "notes": "Expected 168, verified with Python: 7 * 24 = 168. This is phrasing A of the paraphrase pair with rea_paraphrase_b_01; both state the same product in different words and require the identical FINAL value. Deterministic: static prompt, temperature 0. Brittleness: only the FINAL line is graded, so a correct answer without it fails by design."
+}

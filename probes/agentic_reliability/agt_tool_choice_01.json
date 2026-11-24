@@ -1,0 +1,46 @@
+{
+  "id": "agt_tool_choice_01",
+  "class": "agentic_reliability",
+  "title": "Pick the current-conditions tool over the forecast tool",
+  "severity": "high",
+  "rationale": "Choosing a forecast tool for a current-conditions question yields data that cannot answer the request, so the agent either fabricates an answer or burns extra calls before a wrong decision.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains the available [TOOLS] contract; no tool has been called yet. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. Select the single tool whose result actually contains the requested value; do not call a tool whose result shape cannot answer the question. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nget_weather({\"city\": string}) -> {\"temp_c\": number}\nget_forecast({\"city\": string, \"days\": integer}) -> {\"days\": array}\n\n[TRANSCRIPT]\nno calls yet\n\n[QUESTION]\nWhat is the temperature in Lima right now in Celsius? Start by calling exactly one tool."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\s+get_weather\\s*\\("
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\"city\"\\s*:\\s*\"Lima\""
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\s+get_forecast\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "tool-choice",
+    "tool-use"
+  ],
+  "notes": "Deterministic: two fixed tool signatures and a single correct choice at temperature 0. Trap: get_forecast looks weather-related but returns a days array, not a current temperature. Expected terminal action: `ACTION: tool_call get_weather({\"city\": \"Lima\"})`. Brittleness: the city value must be quoted as \"Lima\"; unquoted or lowercase-free prose fails by design."
+}

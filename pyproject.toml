@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "failbench"
+version = "0.1.0"
+description = "Evidence-backed, judge-free failure probes for LLMs. Every probe deterministic, every claim sourced."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+authors = [{ name = "llm-failbench contributors" }]
+keywords = ["llm", "evaluation", "benchmark", "hallucination", "prompt-injection", "testing", "regression"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.scripts]
+failbench = "failbench.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Qin-z-x/llm-failbench"
+Repository = "https://github.com/Qin-z-x/llm-failbench"
+Issues = "https://github.com/Qin-z-x/llm-failbench/issues"
+
+[tool.setuptools]
+packages = ["failbench", "failbench.providers"]

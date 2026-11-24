@@ -1,0 +1,38 @@
+{
+  "id": "if_three_bullets_01",
+  "class": "instruction_following",
+  "title": "Exactly three bullet lines for a day-hike pack",
+  "severity": "medium",
+  "rationale": "Checklist importers and copy-paste workflows expect a fixed bullet count with no heading; extra lines shift items and break packing or safety lists that people rely on.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Output only the requested bullet lines: no heading, no introduction, no closing sentence."
+    },
+    {
+      "role": "user",
+      "content": "Write a packing checklist with exactly three bullet lines. Each line must start with '- ' and name one of these items, in this order: water bottle, rain jacket, trail map. Output only the three bullet lines and nothing else."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 96
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["water bottle", "rain jacket", "trail map"]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\\A- water bottle[ \\t]*\\n- rain jacket[ \\t]*\\n- trail map[ \\t]*\\n?\\Z"
+      }
+    ]
+  },
+  "tags": ["format", "bullets", "exact-count"],
+  "notes": "Deterministic: static prompt, temperature 0, fixed three items and line structure. Brittleness: a heading, a blank line between bullets, or a reordered item fails the anchored three-line pattern even when all items are present."
+}

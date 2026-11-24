@@ -1,0 +1,33 @@
+{
+  "id": "det_decimal_compare_01",
+  "class": "determinism_calibration",
+  "title": "Compare the decimals 9.11 and 9.9",
+  "severity": "high",
+  "rationale": "Decimal ordering is a systematic numeric comparison failure; ranking 9.11 above 9.9 misorders prices, versions and measurements in automated checks.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise numerical assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "Which is larger, 9.11 or 9.9? Answer with the larger number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 9.9,
+    "tolerance": 0
+  },
+  "tags": [
+    "numerical",
+    "calibration"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one numeric answer. Expected value 9.9 because 9.9 equals 9.90, which is greater than 9.11. Brittleness: a reply such as '9.11 is smaller' states the right relation but fails because numeric reads the first number in the response (9.11); the prompt asks for the larger number only, so this is an intended failure."
+}

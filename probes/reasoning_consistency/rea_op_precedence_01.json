@@ -1,0 +1,17 @@
+{
+  "id": "rea_op_precedence_01",
+  "class": "reasoning_consistency",
+  "title": "Mixed division and multiplication order",
+  "severity": "low",
+  "rationale": "A model that silently reorders equal-precedence operations returns a value wrong by a factor of four, contaminating every downstream estimate built on it.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise arithmetic assistant. Answer with the number only."},
+    {"role": "user", "content": "Compute 8 / 4 * 2. Apply operators of equal precedence from left to right."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 64},
+  "repeats": 1,
+  "scoring": {"type": "numeric", "value": 4},
+  "tags": ["arithmetic", "operator-precedence"],
+  "notes": "Expected value 4, verified with Python: 8 / 4 * 2 evaluates left to right as 2 * 2 = 4 (Python returns 4.0, which the numeric scorer accepts). Deterministic: static prompt, temperature 0, single number-only answer. Brittleness: the tempting right-to-left parse gives 1, a plausible wrong answer; the prompt states the left-to-right rule so the expected answer is unambiguous."
+}

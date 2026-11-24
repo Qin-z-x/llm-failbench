@@ -1,0 +1,17 @@
+{
+  "id": "str_delimiters_01",
+  "class": "structured_output",
+  "title": "Exact result delimiters with nothing after the tag",
+  "severity": "medium",
+  "rationale": "Downstream extractors split responses on result tags; prose after the closing tag leaks into the parsed value and corrupts the stored record.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a strict formatter. Reply with the requested wrapper and nothing else: no commentary, no markdown."},
+    {"role": "user", "content": "Order code kx-8821 must be reported in uppercase.\n\nReturn exactly this, with nothing before or after the wrapper:\n<result>KX-8821</result>\n\nOutput only the wrapped value, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "\\A\\s*<result>\\s*KX-8821\\s*</result>\\s*\\Z"},
+  "tags": ["delimiters", "format"],
+  "notes": "Deterministic: static prompt, temperature 0; one fixed uppercase token inside one fixed wrapper. The regex is anchored with \\A and \\Z and tolerates only surrounding whitespace, so a code fence, a preamble or a closing sentence fails even though the token and tags are present. Brittleness: the uppercase token is literal and case-sensitive, which is intended because the task explicitly asks for the uppercase form."
+}

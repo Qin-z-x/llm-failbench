@@ -1,0 +1,71 @@
+{
+  "generated_at": "2026-11-24T02:33:38Z",
+  "total": 110,
+  "by_class": {
+    "hallucination": {
+      "count": 12,
+      "hn_points": 2585,
+      "github_reactions": 39,
+      "citations_known": 0
+    },
+    "instruction_following": {
+      "count": 12,
+      "hn_points": 811,
+      "github_reactions": 4,
+      "citations_known": 0
+    },
+    "context_retrieval": {
+      "count": 10,
+      "hn_points": 569,
+      "github_reactions": 0,
+      "citations_known": 0
+    },
+    "reasoning_consistency": {
+      "count": 10,
+      "hn_points": 1361,
+      "github_reactions": 0,
+      "citations_known": 0
+    },
+    "sycophancy": {
+      "count": 10,
+      "hn_points": 2228,
+      "github_reactions": 0,
+      "citations_known": 0
+    },
+    "structured_output": {
+      "count": 12,
+      "hn_points": 2272,
+      "github_reactions": 14,
+      "citations_known": 0
+    },
+    "multilingual": {
+      "count": 10,
+      "hn_points": 1615,
+      "github_reactions": 0,
+      "citations_known": 0
+    },
+    "safety_consistency": {
+      "count": 10,
+      "hn_points": 737,
+      "github_reactions": 0,
+      "citations_known": 0
+    },
+    "agentic_reliability": {
+      "count": 12,
+      "hn_points": 5930,
+      "github_reactions": 1,
+      "citations_known": 0
+    },
+    "determinism_calibration": {
+      "count": 12,
+      "hn_points": 381,
+      "github_reactions": 105,
+      "citations_known": 0
+    }
+  },
+  "sources": {
+    "arxiv": 46,
+    "github_issue": 10,
+    "hn_story": 54
+  }
+}

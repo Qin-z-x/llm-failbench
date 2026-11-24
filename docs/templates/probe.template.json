@@ -1,0 +1,18 @@
+{
+  "_comment": "TEMPLATE ONLY - not loaded as a probe. Copy to probes/<class>/<id>.json and delete _comment.",
+  "id": "ctx_example_01",
+  "class": "context_retrieval",
+  "title": "Recall a unique access code placed in the middle of context",
+  "severity": "high",
+  "rationale": "Lost-in-the-middle effect: relevant facts placed mid-context are recalled far less reliably than at the start or end.",
+  "evidence_ids": ["ev_ctx_0001"],
+  "prompt": [
+    {"role": "system", "content": "You are a precise assistant. Reply with the exact code only."},
+    {"role": "user", "content": "Reference log:\n\nSESSION A: ...\nSESSION B: ...\nThe access code is AURORA-7734.\n...\n\nQuestion: What is the access code?"}
+  ],
+  "params": {"temperature": 0, "max_tokens": 32},
+  "repeats": 1,
+  "scoring": {"type": "contains_all", "value": ["AURORA-7734"], "case_sensitive": true},
+  "tags": ["long-context", "needle"],
+  "notes": "Single unambiguous answer; static and self-contained."
+}

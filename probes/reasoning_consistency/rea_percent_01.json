@@ -1,0 +1,17 @@
+{
+  "id": "rea_percent_01",
+  "class": "reasoning_consistency",
+  "title": "Percentage of a round number",
+  "severity": "medium",
+  "rationale": "Discounts, tax rates and margin checks are routinely computed as percentages; a wrong percentage silently distorts pricing decisions and financial summaries.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise calculator. Answer with the number only."},
+    {"role": "user", "content": "What is 15% of 240?"}
+  ],
+  "params": {"temperature": 0, "max_tokens": 64},
+  "repeats": 1,
+  "scoring": {"type": "numeric", "value": 36},
+  "tags": ["percent", "numeric"],
+  "notes": "Expected value 36, verified with Python: 0.15 * 240 = 36.0. Deterministic: static prompt, temperature 0, single number-only answer. Brittleness: a reply that restates the percentage setup with several numbers would let the first-number rule pick the wrong value, so the system message requires a bare number."
+}

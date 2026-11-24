@@ -1,0 +1,39 @@
+{
+  "id": "str_nested_json_01",
+  "class": "structured_output",
+  "title": "Nested report object with a typed id and status enum",
+  "severity": "high",
+  "rationale": "Reporting and ingestion pipelines key on the nested report object; a string id or an out-of-enum status silently breaks automated filing and downstream dashboards.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a structured-report formatter. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Format the finished job as JSON. Job id: 4471 (integer). Final status: ok.\n\nReturn exactly this JSON with the same keys and value types and no extra keys:\n{\"report\": {\"id\": 4471, \"status\": \"ok\"}}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {
+        "type": "object",
+        "properties": {
+          "report": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "integer"},
+              "status": {"type": "string", "enum": ["ok", "failed"]}
+            },
+            "required": ["id", "status"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["report"],
+        "additionalProperties": false
+      }},
+      {"type": "regex", "pattern": "\"id\"\\s*:\\s*4471\\b"},
+      {"type": "regex", "pattern": "\"status\"\\s*:\\s*\"ok\""}
+    ]
+  },
+  "tags": ["json", "nested-object"],
+  "notes": "Deterministic: static prompt, temperature 0; the requested id and status are fixed. Extraction accepts a bare JSON value or a single fenced block, so a fenced answer still passes the schema unit; nested typing is what this probe measures. Brittleness: a decimal id such as 4471.0 fails the integer type even though the regex pins the digits, and extra keys fail additionalProperties."
+}

@@ -1,0 +1,46 @@
+{
+  "id": "agt_stop_after_success_02",
+  "class": "agentic_reliability",
+  "title": "Stop after the order status is already known",
+  "severity": "medium",
+  "rationale": "Tacking optional enrichment onto an already answered request adds latency and paid calls, delaying the user-facing answer for data nobody asked for.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. Answer the question that was actually asked; do not call extra tools just to enrich an answer that is already complete. The final line must be exactly `ACTION: final status=shipped`. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nget_order_status({\"order_id\": string}) -> {\"status\": string}\nget_shipping_estimate({\"order_id\": string}) -> {\"eta_days\": integer}\n\n[TRANSCRIPT]\nassistant: tool_call get_order_status({\"order_id\": \"ORD-8842\"})\ntool: {\"status\": \"shipped\"}\n\n[QUESTION]\nHas order ORD-8842 shipped yet?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)status\\s*=\\s*shipped\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "stop-condition",
+    "over-eager"
+  ],
+  "notes": "Deterministic: the status is fixed in the static transcript and temperature is 0. Trap: the assistant may call get_shipping_estimate for an ETA that was never asked for. Expected terminal action: `ACTION: final status=shipped`. Brittleness: the token status=shipped is required; a bare 'Yes, it shipped' fails the format contract."
+}

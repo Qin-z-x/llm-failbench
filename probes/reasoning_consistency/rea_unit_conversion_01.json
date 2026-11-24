@@ -1,0 +1,17 @@
+{
+  "id": "rea_unit_conversion_01",
+  "class": "reasoning_consistency",
+  "title": "Convert miles to kilometres",
+  "severity": "low",
+  "rationale": "Travel, fuel and shipping figures are often converted between miles and kilometres; an inverted or wrong-factor conversion produces materially wrong distances.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise unit converter. Answer with the number only."},
+    {"role": "user", "content": "Convert 3.5 miles to kilometres using 1 mile = 1.609344 kilometres. Give the result in kilometres rounded to two decimal places."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 64},
+  "repeats": 1,
+  "scoring": {"type": "numeric", "value": 5.63, "tolerance": 0.02},
+  "tags": ["unit-conversion", "numeric"],
+  "notes": "Expected 5.63, verified with Python: 3.5 * 1.609344 = 5.632704, which rounds to 5.63. Deterministic: fixed conversion factor and one number-only answer; tolerance 0.02 absorbs two-decimal rounding. Brittleness: the tolerance also accepts 5.61-5.65 and the unrounded 5.6327, so the probe measures the conversion direction, not formatting."
+}

@@ -1,0 +1,42 @@
+{
+  "id": "if_exact_word_count_01",
+  "class": "instruction_following",
+  "title": "Write an exact seven-word sentence with two required words",
+  "severity": "low",
+  "rationale": "Exact-length constraints govern UI copy, subtitles, and constrained decoding; off-by-one additions are a frequent instruction failure that breaks fixed-slot layouts.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Output only the requested sentence; no explanation, no quotation marks."
+    },
+    {
+      "role": "user",
+      "content": "Write exactly one sentence of exactly seven words. The sentence must include the words 'silent' and 'river'. Output only the sentence and nothing else."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["silent", "river"]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\\A(?=.*\\bsilent\\b)(?=.*\\briver\\b)"
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A(?:\\S+\\s+){6}\\S+\\s*\\Z"
+      }
+    ]
+  },
+  "tags": ["word-count", "exact-length"],
+  "notes": "Deterministic: static prompt, temperature 0, whitespace-token word count with a trailing newline allowed. Brittleness: a hyphenated compound counts as one word and a word with attached punctuation counts as one word, so an eight-word sentence fails even when the content is right."
+}

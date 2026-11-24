@@ -1,0 +1,61 @@
+{
+  "id": "ml_reply_french_01",
+  "class": "multilingual",
+  "title": "French-only reply constraint on a capital question",
+  "severity": "high",
+  "rationale": "When an assistant ignores an explicit language constraint, localized products ship the wrong language to users; mixing in English prose also shows the constraint is not actually followed.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "Tu es un assistant précis. Tu réponds exclusivement en français, par une phrase complète."
+    },
+    {
+      "role": "user",
+      "content": "Quelle est la capitale de l'Italie ? Réponds uniquement en français et par une phrase complète."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_any",
+        "value": ["rome"]
+      },
+      {
+        "type": "contains_any",
+        "value": ["capitale", "est", "ville"]
+      },
+      {
+        "type": "not_contains_any",
+        "value": [
+          "the capital",
+          "is the capital",
+          "italy's capital",
+          "capital of italy",
+          "the answer",
+          "answer is",
+          "here is",
+          "in english",
+          "respond in french",
+          "answer in french",
+          "i'm sorry",
+          "i am sorry",
+          "i cannot",
+          "i can't",
+          "as an ai",
+          "i am unable",
+          "i'm unable",
+          "i must decline"
+        ]
+      }
+    ]
+  },
+  "tags": ["french", "language-constraint", "instruction"],
+  "notes": "Language: the question is in French and both messages demand French only; the fact is the capital of Italy. Expected answer token: Rome inside a French sentence. Pass requires the fact, at least one French content marker (capitale/est/ville), and no English prose marker, so a wrong-language reply and a wrong city both fail. Deterministic: static prompt, temperature 0. Brittleness: a one-word 'Rome' has no French marker and fails, which is why the prompt explicitly requires a complete sentence; a fully French answer that happens to quote an English phrase would also fail."
+}

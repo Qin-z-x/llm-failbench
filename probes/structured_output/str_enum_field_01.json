@@ -1,0 +1,23 @@
+{
+  "id": "str_enum_field_01",
+  "class": "structured_output",
+  "title": "Incident severity constrained to a three-value enum",
+  "severity": "medium",
+  "rationale": "Triage tooling routes incidents by a fixed severity vocabulary; an out-of-vocabulary label drops the alert or sends it to the wrong on-call queue.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are an incident triage formatter. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Triage note: a failed migration deleted the primary billing database of the synthetic service Quillharbor, the newest verified backup is 26 hours old, and invoices for three regions are unrecoverable.\n\nClassify the severity as exactly one of \"low\", \"medium\" or \"high\". Return exactly this JSON shape with no extra keys:\n{\"severity\": \"<low|medium|high>\"}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "object", "properties": {"severity": {"type": "string", "enum": ["low", "medium", "high"]}}, "required": ["severity"], "additionalProperties": false}},
+      {"type": "regex", "pattern": "\"severity\"\\s*:\\s*\"high\""}
+    ]
+  },
+  "tags": ["json", "enum"],
+  "notes": "Deterministic: static prompt, temperature 0; database loss with a 26-hour-old backup is unambiguously high severity. Extraction accepts a bare JSON value or one fenced block, so a fence does not fail the probe. Brittleness: enum membership alone would accept low or medium, so the extra regex pins the defensible label; a model that rates the incident differently fails even with valid JSON."
+}

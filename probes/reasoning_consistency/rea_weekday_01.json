@@ -1,0 +1,17 @@
+{
+  "id": "rea_weekday_01",
+  "class": "reasoning_consistency",
+  "title": "Weekday of a future calendar date",
+  "severity": "medium",
+  "rationale": "Scheduling and deadline calculations depend on correct weekday mapping; a wrong weekday silently books meetings and deliveries on the wrong day.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise calendar assistant. Reason carefully, then end with exactly one final line of the form `FINAL: <weekday>`."},
+    {"role": "user", "content": "What day of the week is 2027-03-15? End your reply with exactly one line `FINAL: <weekday>`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "(?i)FINAL:\\s*(?:Monday|Mon)\\b"},
+  "tags": ["calendar", "weekday"],
+  "notes": "Expected weekday Monday, verified with Python: datetime.date(2027, 3, 15).strftime('%A') == 'Monday'. Deterministic: static prompt and a fixed Gregorian date. Brittleness: only the FINAL line is graded, so a correct answer without the required final line fails by design."
+}

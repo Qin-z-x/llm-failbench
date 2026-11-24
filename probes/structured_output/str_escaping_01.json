@@ -1,0 +1,27 @@
+{
+  "id": "str_escaping_01",
+  "class": "structured_output",
+  "title": "Quote and backslash escaped inside a JSON string",
+  "severity": "medium",
+  "rationale": "Log lines and command payloads contain quotes and backslashes; unescaped JSON produces invalid records that parsers and log shippers reject.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a JSON serializer. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "The sentence to serialize is: The file is \"draft.txt\" in C:\\notes\\today\n\nReturn exactly this JSON shape with no extra keys, where message is that exact sentence encoded as a valid JSON string:\n{\"message\": \"<the sentence>\"}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "json_schema",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "message": {"type": "string", "enum": ["The file is \"draft.txt\" in C:\\notes\\today"]}
+      },
+      "required": ["message"],
+      "additionalProperties": false
+    }
+  },
+  "tags": ["json", "escaping"],
+  "notes": "Deterministic: static prompt, temperature 0; the sentence is fixed and the enum pins the exact decoded value. JSON extraction returns the decoded string, so escaping is proved by the parser and any valid encoding (for example \\\" or \\\\ ) that decodes to the sentence passes. Brittleness: an unescaped inner quote or a single unescaped backslash makes the response invalid JSON and fails extraction; rewriting the path with forward slashes also fails the enum."
+}

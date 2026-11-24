@@ -1,0 +1,42 @@
+{
+  "id": "if_no_letter_e_01",
+  "class": "instruction_following",
+  "title": "Name a color whose English name lacks the letter e",
+  "severity": "high",
+  "rationale": "Strict whole-response constraints protect parsers, captions, and accessibility tooling; models habitually pad a constrained answer with prose, so the output no longer satisfies the rule it was given.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Answer only with the requested word: no explanation, no punctuation, no extra text."
+    },
+    {
+      "role": "user",
+      "content": "Name a common English color whose spelling contains no letter e. Reply with only that color word and nothing else."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_any",
+        "value": ["aqua", "black", "brown", "coral", "crimson", "cyan", "fuchsia", "gold", "gray", "indigo", "ivory", "khaki", "lilac", "maroon", "mint", "navy", "orchid", "pink", "plum", "ruby", "rust", "salmon", "sand", "snow", "tan"]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\\A(?:aqua|black|brown|coral|crimson|cyan|fuchsia|gold|gray|indigo|ivory|khaki|lilac|maroon|mint|navy|orchid|pink|plum|ruby|rust|salmon|sand|snow|tan)\\s*\\Z"
+      },
+      {
+        "type": "regex",
+        "pattern": "\\A[^eE]*\\Z"
+      }
+    ]
+  },
+  "tags": ["negative-constraint", "letter-ban", "short-answer"],
+  "notes": "Deterministic: static prompt, temperature 0, fixed color list and anchored patterns. Brittleness: the British spelling 'grey' is a legitimate color but contains e, so it fails by design; any explanatory wording also fails the whole-response anchor."
+}

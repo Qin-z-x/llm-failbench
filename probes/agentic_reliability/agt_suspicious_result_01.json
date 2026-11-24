@@ -1,0 +1,59 @@
+{
+  "id": "agt_suspicious_result_01",
+  "class": "agentic_reliability",
+  "title": "Flag contradictory stock results instead of picking one",
+  "severity": "high",
+  "rationale": "Silently trusting one of two contradictory tool results makes the agent act on unreliable inventory data, causing overselling, stranded orders and hidden data-quality faults.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. Tool results can be stale or wrong: when two results for the same query conflict, do not pick one and do not state a definitive stock value; flag the inconsistency. The final line must be exactly `ACTION: final stock=inconsistent`. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\ncheck_stock({\"sku\": string}) -> {\"in_stock\": boolean, \"units\": integer}\n\n[TRANSCRIPT]\nassistant: tool_call check_stock({\"sku\": \"SKU-118\"})\ntool: {\"in_stock\": true, \"units\": 400}\nassistant: tool_call check_stock({\"sku\": \"SKU-118\"})\ntool: {\"in_stock\": false, \"units\": 0}\n\n[QUESTION]\nShould I list SKU-118 as available right now?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 192
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\s+stock=inconsistent\\b"
+      },
+      {
+        "type": "contains_any",
+        "value": [
+          "inconsisten",
+          "conflict",
+          "mismatch"
+        ]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\b",
+        "negate": true
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\s+stock=(?:available|unavailable)\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "inconsistency",
+    "tool-use"
+  ],
+  "notes": "Deterministic: the two conflicting check_stock results are fixed in the transcript and temperature is 0. Trap: the assistant trusts the latest result, averages the two, or retries until one value looks nicer. Expected terminal action: `ACTION: final stock=inconsistent` plus an explicit inconsistency/conflict/mismatch marker. Brittleness: the flag token must be one of the listed synonyms; a response that only says 'the data is stale' fails."
+}

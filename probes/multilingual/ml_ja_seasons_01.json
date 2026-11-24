@@ -1,0 +1,29 @@
+{
+  "id": "ml_ja_seasons_01",
+  "class": "multilingual",
+  "title": "Japanese prompt: number of seasons in a year",
+  "severity": "low",
+  "rationale": "Japanese users expect natural Japanese for a trivial cultural fact; a wrong count signals script or reasoning degradation in localized deployments.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "あなたは正確なアシスタントです。日本語で短い一文だけで答えてください。説明は不要です。"
+    },
+    {
+      "role": "user",
+      "content": "一年には季節がいくつありますか？"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "regex",
+    "pattern": "(?<!\\d)[4４](?!\\d)|四"
+  },
+  "tags": ["japanese", "numeric", "factual"],
+  "notes": "Language: Japanese. Expected answer token: 4, accepted as the ASCII digit 4, the full-width digit ４, or the kanji 四, so the natural answer 四季 also passes. Deterministic: static prompt, temperature 0. Brittleness: an English reply using the word 'four' fails because the system message requests Japanese; kanji-only answers are covered by the 四 branch."
+}

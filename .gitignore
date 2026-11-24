@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Local scratch / downloads / secrets
+_scratch/
+.env
+.env.*
+*.log
+*.zip
+
+# Work-in-progress results are not committed; only results/demo/ is intentionally kept
+results/*
+!results/demo/
+!results/demo/**
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini

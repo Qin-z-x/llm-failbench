@@ -1,0 +1,131 @@
+name: Evidence submission
+description: Submit a public, verifiable LLM-failure report for the Atlas.
+title: "[evidence] "
+labels: ["evidence"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Evidence records feed the FailBench Atlas: one JSON object per line, each tied to a public source that a maintainer can reach. Read `docs/CONTRACT.md` section 4 (evidence record schema) before submitting.
+
+        Non-negotiable rules:
+
+        - `source_url` must be a real URL you personally reached. Do not invent, guess, or reconstruct URLs.
+        - `quote` must be copied verbatim from the page and is limited to 200 characters. If you cannot verify the exact text, leave it empty.
+        - `summary` must be in your own words, at most 400 characters, with no hype.
+        - No PII, private or leaked data, harmful payloads, or long copyrighted excerpts. Cite the phenomenon; do not reproduce attack payloads.
+        - `status` stays `cited` unless a real model run tested the claim; if tested, reference that run in `notes`.
+        - Do not include secrets, API keys, tokens, or private data anywhere in this issue.
+  - type: dropdown
+    id: failure_class
+    attributes:
+      label: Failure class
+      description: The fixed failure-class id from docs/CONTRACT.md section 3.
+      options:
+        - "hallucination"
+        - "instruction_following"
+        - "context_retrieval"
+        - "reasoning_consistency"
+        - "sycophancy"
+        - "structured_output"
+        - "multilingual"
+        - "safety_consistency"
+        - "agentic_reliability"
+        - "determinism_calibration"
+    validations:
+      required: true
+  - type: dropdown
+    id: source_type
+    attributes:
+      label: Source type
+      description: One of the allowed source types from docs/CONTRACT.md section 4.
+      options:
+        - "hn_story"
+        - "github_issue"
+        - "arxiv"
+        - "blog"
+        - "vendor_doc"
+        - "reddit_thread"
+        - "forum_thread"
+        - "docs"
+    validations:
+      required: true
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: The exact https URL you reached. Do not guess or construct it.
+      placeholder: "https://REPLACE-WITH-REAL-URL"
+    validations:
+      required: true
+  - type: input
+    id: source_title
+    attributes:
+      label: Source title
+      description: The page or paper title, optional.
+  - type: input
+    id: published_date
+    attributes:
+      label: Published date
+      description: ISO date of the source, or leave blank when unknown.
+      placeholder: "YYYY-MM-DD or leave blank"
+  - type: textarea
+    id: quote
+    attributes:
+      label: Quote (verbatim, up to 200 characters; leave empty if you cannot verify)
+      description: Copy the exact text from the source, at most 200 characters. Do not paraphrase here; paraphrasing belongs in the summary.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary in your own words (400 characters maximum)
+      description: Describe the reported failure plainly, without hype, in at most 400 characters.
+    validations:
+      required: true
+  - type: input
+    id: popularity_metrics
+    attributes:
+      label: Popularity metrics (optional)
+      description: Only allowed keys and integer values, for example hn_points or citations.
+      placeholder: "hn_points: 521"
+  - type: textarea
+    id: full_record
+    attributes:
+      label: Full JSON record
+      description: "One JSON object matching docs/CONTRACT.md section 4. Replace every placeholder, use an id of the form ev_class_0001, use allowed metric keys only, and keep status set to cited unless a real run tested it."
+      render: json
+      value: |
+        {
+          "id": "ev_ctx_9999",
+          "class": "context_retrieval",
+          "title": "REPLACE WITH A SHORT FACTUAL TITLE",
+          "source_type": "arxiv",
+          "source_url": "https://REPLACE-WITH-REAL-URL",
+          "source_title": "",
+          "publisher": "",
+          "published_date": "YYYY-MM-DD",
+          "metrics": {},
+          "quote": "",
+          "summary": "",
+          "status": "cited",
+          "probe_ids": [],
+          "collected_by": "REPLACE-WITH-YOUR-GITHUB-HANDLE",
+          "collected_at": "YYYY-MM-DD"
+        }
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      description: Every item must be confirmed before submitting.
+      options:
+        - label: I reached source_url myself; it is not invented or guessed.
+          required: true
+        - label: The quote is copied verbatim or left empty; no paraphrase.
+          required: true
+        - label: No PII, private data, harmful payloads, or long copyrighted excerpts.
+          required: true
+        - label: Metrics are only under allowed keys and integers, or omitted.
+          required: true
+        - label: I understand records are reviewed manually and status stays 'cited' unless independently tested.
+          required: true

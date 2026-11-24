@@ -1,0 +1,24 @@
+{
+  "id": "str_boolean_01",
+  "class": "structured_output",
+  "title": "Boolean flag with enum sibling and no extra keys",
+  "severity": "low",
+  "rationale": "Config consumers read booleans and enum modes directly; a stringified boolean flips a feature flag on when it should be off and silently changes behaviour.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a feature-flag formatter. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Feature aurora_mode is enabled and its mode is strict. Return exactly this JSON object with no extra keys, where enabled is a JSON boolean and mode is one of \"strict\" or \"lenient\":\n{\"enabled\": true, \"mode\": \"strict\"}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "object", "properties": {"enabled": {"type": "boolean"}, "mode": {"type": "string", "enum": ["strict", "lenient"]}}, "required": ["enabled", "mode"], "additionalProperties": false}},
+      {"type": "regex", "pattern": "\"enabled\"\\s*:\\s*true"},
+      {"type": "regex", "pattern": "\"mode\"\\s*:\\s*\"strict\""}
+    ]
+  },
+  "tags": ["json", "boolean"],
+  "notes": "Deterministic: static prompt, temperature 0; both requested values are fixed. The schema enforces a real boolean plus an enum sibling and rejects extra keys; the two regex units pin the requested values. Extraction accepts a bare JSON value or one fenced block. Brittleness: a valid but inverted config (enabled false or mode lenient) fails the regex units even though it is schema-valid, which is intended."
+}

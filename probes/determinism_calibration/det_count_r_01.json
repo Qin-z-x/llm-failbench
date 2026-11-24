@@ -1,0 +1,33 @@
+{
+  "id": "det_count_r_01",
+  "class": "determinism_calibration",
+  "title": "Count the letter r in the word strawberry",
+  "severity": "medium",
+  "rationale": "Character counting exposes tokenization blind spots; a model that miscounts letters corrupts data extraction, validation and redaction tasks that users assume are trivial.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise counting assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "Count every occurrence of the lowercase letter r in the word strawberry. Answer with the number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 3,
+    "tolerance": 0
+  },
+  "tags": [
+    "counting",
+    "tokenization"
+  ],
+  "notes": "Repeats=3 and all three must pass (score_probe_scoring semantics). Deterministic: static prompt, temperature 0, one integer answer. Expected value 3: the r letters sit at 1-based positions 3, 8 and 9 of strawberry. Brittleness: a spelled-out answer such as 'three' fails the numeric unit even though it is correct, and the system prompt requests the number only."
+}

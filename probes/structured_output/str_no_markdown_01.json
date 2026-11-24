@@ -1,0 +1,23 @@
+{
+  "id": "str_no_markdown_01",
+  "class": "structured_output",
+  "title": "Raw JSON object without markdown code fences",
+  "severity": "high",
+  "rationale": "Output parsers expect raw JSON; a fenced code block breaks single-pass parsing in CI gates and agent loops that do not strip Markdown.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a JSON-only API. Every reply must be raw JSON: no prose, no markdown, no code fences."},
+    {"role": "user", "content": "Return exactly this JSON object with no extra keys:\n{\"status\": \"ok\", \"count\": 3}\n\nOutput only the JSON, no prose, no code fences."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "object", "properties": {"status": {"type": "string", "enum": ["ok", "failed"]}, "count": {"type": "integer"}}, "required": ["status", "count"], "additionalProperties": false}},
+      {"type": "regex", "pattern": "```", "negate": true}
+    ]
+  },
+  "tags": ["json", "no-markdown"],
+  "notes": "Deterministic: static prompt, temperature 0; the demanded object is fixed. Extraction accepts a bare JSON value or one fenced block, which is why the negate unit for a triple-backtick fence is required: a model that wraps the object in a Markdown block passes the schema unit but fails the probe. Brittleness: extract_json scans forward to the first parseable JSON value, so a one-line preamble followed by bare JSON would still pass; the probe targets the common Markdown-fence failure."
+}

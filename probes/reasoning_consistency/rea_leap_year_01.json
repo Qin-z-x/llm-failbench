@@ -1,0 +1,17 @@
+{
+  "id": "rea_leap_year_01",
+  "class": "reasoning_consistency",
+  "title": "Add 365 days to a leap day",
+  "severity": "medium",
+  "rationale": "Renewal, warranty and licence dates are often computed by adding a year of days; mishandling the leap day shifts the result by a day and corrupts schedules.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a precise calendar assistant. Reason carefully, then end with exactly one final line of the form `FINAL: YYYY-MM-DD`."},
+    {"role": "user", "content": "A service subscription starts on 2028-02-29. Its next renewal is exactly 365 days later. What calendar date is the renewal? End your reply with exactly one line `FINAL: YYYY-MM-DD`."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {"type": "regex", "pattern": "(?i)FINAL:\\s*2029-02-28\\b"},
+  "tags": ["calendar", "leap-year"],
+  "notes": "Expected 2029-02-28, verified with Python: datetime.date(2028, 2, 29) + datetime.timedelta(days=365) == datetime.date(2029, 2, 28). Deterministic: both dates are fixed. Brittleness: the common wrong answer 2029-03-01 assumes the leap day adds an extra day; only the FINAL line is graded."
+}

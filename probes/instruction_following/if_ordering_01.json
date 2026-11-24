@@ -1,0 +1,38 @@
+{
+  "id": "if_ordering_01",
+  "class": "instruction_following",
+  "title": "Ordered three-step checklist with fixed step labels",
+  "severity": "medium",
+  "rationale": "Runbooks and tutorials are followed in sequence; out-of-order labels or a missing STEP line cause operational errors for anyone executing the instructions.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a terse assistant. Output only the requested three lines; no title, no introduction, no closing text."
+    },
+    {
+      "role": "user",
+      "content": "Write a three-step checklist for preparing for a day hike, as exactly three non-empty lines. The first line must start with 'STEP 1: ', the second with 'STEP 2: ', and the third with 'STEP 3: '. Together the steps must mention 'hiking boots', 'water bottle', and 'trail map'. Output only the three lines and nothing else."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": ["hiking boots", "water bottle", "trail map"]
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)\\ASTEP 1: [^\\n]*\\nSTEP 2: [^\\n]*\\nSTEP 3: [^\\n]*\\n?\\Z"
+      }
+    ]
+  },
+  "tags": ["ordering", "format", "procedure"],
+  "notes": "Deterministic: static prompt, temperature 0, fixed labels and required item phrases. Brittleness: a title, a blank line, reordered STEP labels, or different label wording fails the anchored three-line pattern even if the steps are correct in spirit."
+}

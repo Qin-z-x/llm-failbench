@@ -1,0 +1,23 @@
+{
+  "id": "str_unicode_field_01",
+  "class": "structured_output",
+  "title": "Chinese greeting preserved in a JSON string field",
+  "severity": "low",
+  "rationale": "Unicode text flows through translation and notification pipelines; a garbled or English-only greeting reaches end users in customer-facing messages.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a translation formatter. Reply with one JSON object and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Translate the English greeting \"Hello\" into Simplified Chinese.\n\nReturn exactly this JSON shape with no extra keys, putting the Chinese translation in the greeting field:\n{\"greeting\": \"<Simplified Chinese translation>\"}\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 128},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "object", "properties": {"greeting": {"type": "string"}}, "required": ["greeting"], "additionalProperties": false}},
+      {"type": "contains_any", "value": ["你好"]}
+    ]
+  },
+  "tags": ["json", "unicode"],
+  "notes": "Deterministic: static prompt, temperature 0; the standard Simplified Chinese translation of Hello is 你好. Extraction accepts a bare JSON value or one fenced block, so a fence still passes the schema unit. Brittleness: a valid JSON response that escapes the characters as \\u4f60\\u597d parses correctly but fails the raw-text contains_any check, and the more formal rendering 您好 fails because the probe pins the standard translation."
+}

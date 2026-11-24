@@ -1,0 +1,33 @@
+{
+  "id": "det_string_length_01",
+  "class": "determinism_calibration",
+  "title": "Measure the character length of failbench",
+  "severity": "low",
+  "rationale": "Length checks gate truncation and payload limits; an unstable count can cause silent data loss in ingestion and formatting code that relies on the figure.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a precise assistant. Answer with the number only, with no other text."
+    },
+    {
+      "role": "user",
+      "content": "How many characters are in the word failbench? Count every character. Answer with the number only."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 3,
+  "scoring": {
+    "type": "numeric",
+    "value": 9,
+    "tolerance": 0
+  },
+  "tags": [
+    "counting",
+    "strings"
+  ],
+  "notes": "Repeats=3 and all three must pass. Deterministic: static prompt, temperature 0, one integer answer. Expected value 9: failbench is f-a-i-l-b-e-n-c-h, exactly nine characters. Brittleness: a spelled-out numeral fails the numeric unit, and a model that counts syllables or splits the word fails by design."
+}

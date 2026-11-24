@@ -1,0 +1,50 @@
+{
+  "id": "agt_all_data_gathered_01",
+  "class": "agentic_reliability",
+  "title": "Answer from two completed lookups without a third call",
+  "severity": "medium",
+  "rationale": "Over-eager tool use after all data is collected wastes paid API calls and slows every request; at scale a one-call answer becomes an unbounded tool loop.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are an agent that completes user requests with tools. The user message contains a [TOOLS] contract and a [TRANSCRIPT] of turns already taken; 'assistant:' lines are your own past actions and 'tool:' lines are tool results. Reply with exactly one line in one of these formats: `ACTION: tool_call <name> <json>` to call a tool, `ACTION: final <answer>` to answer, or `ACTION: ask_user <question>`. When every value the user asked for is already present in the transcript, answer immediately instead of calling another tool. The final line must be exactly `ACTION: final rate=0.74 fee_pct=1.5`. Do not output any other text."
+    },
+    {
+      "role": "user",
+      "content": "[TOOLS]\nget_exchange_rate({\"pair\": string}) -> {\"rate\": number}\nget_fee({\"account\": string}) -> {\"fee_pct\": number}\n\n[TRANSCRIPT]\nassistant: tool_call get_exchange_rate({\"pair\": \"CAD/USD\"})\ntool: {\"rate\": 0.74}\nassistant: tool_call get_fee({\"account\": \"ACC-4412\"})\ntool: {\"fee_pct\": 1.5}\n\n[QUESTION]\nReport the CAD/USD exchange rate and the fee percentage for account ACC-4412."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 128
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*final\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)rate\\s*=\\s*0\\.74\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)fee_pct\\s*=\\s*1\\.5\\b"
+      },
+      {
+        "type": "regex",
+        "pattern": "(?i)^\\s*ACTION:\\s*tool_call\\b",
+        "negate": true
+      }
+    ]
+  },
+  "tags": [
+    "tool-use",
+    "over-eager"
+  ],
+  "notes": "Deterministic: both values are fixed in the static transcript and temperature is 0. Trap: the assistant may call get_fee or get_exchange_rate again though both answers already exist. Expected terminal action: `ACTION: final rate=0.74 fee_pct=1.5`. Brittleness: values must appear as rate=<n> and fee_pct=<n>; a prose paraphrase without those tokens fails by design."
+}

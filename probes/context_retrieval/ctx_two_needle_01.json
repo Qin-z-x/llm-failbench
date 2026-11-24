@@ -1,0 +1,45 @@
+{
+  "id": "ctx_two_needle_01",
+  "class": "context_retrieval",
+  "title": "Retrieve both bin and seal codes needed for release",
+  "severity": "medium",
+  "rationale": "Release needs two linked identifiers; retrieving only one lets the wrong consignment leave cold storage and spoils the shipment.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "You are a careful release clerk. Answer with both codes only."
+    },
+    {
+      "role": "user",
+      "content": "Aisle FROSTHOLD-001: rack 02 held 68 cases and 44 kilos at cycle 0001.\nAisle FROSTHOLD-002: rack 03 held 8 cases and 4 kilos at cycle 0002.\nAisle FROSTHOLD-003: rack 04 held 45 cases and 17 kilos at cycle 0003.\nAisle FROSTHOLD-004: rack 05 held 82 cases and 30 kilos at cycle 0004.\nAisle FROSTHOLD-005: rack 06 held 22 cases and 43 kilos at cycle 0005.\nAisle FROSTHOLD-006: rack 07 held 59 cases and 3 kilos at cycle 0006.\nAisle FROSTHOLD-007: rack 08 held 96 cases and 16 kilos at cycle 0007.\nAisle FROSTHOLD-008: rack 09 held 36 cases and 29 kilos at cycle 0008.\nAisle FROSTHOLD-009: rack 10 held 73 cases and 42 kilos at cycle 0009.\nAisle FROSTHOLD-010: rack 11 held 13 cases and 2 kilos at cycle 0010.\nAisle FROSTHOLD-011: rack 01 held 50 cases and 15 kilos at cycle 0011.\nAisle FROSTHOLD-012: rack 02 held 87 cases and 28 kilos at cycle 0012.\nAisle FROSTHOLD-013: rack 03 held 27 cases and 41 kilos at cycle 0013.\nAisle FROSTHOLD-014: rack 04 held 64 cases and 1 kilos at cycle 0014.\nAisle FROSTHOLD-015: rack 05 held 4 cases and 14 kilos at cycle 0015.\nAisle FROSTHOLD-016: rack 06 held 41 cases and 27 kilos at cycle 0016.\nAisle FROSTHOLD-017: rack 07 held 78 cases and 40 kilos at cycle 0017.\nAisle FROSTHOLD-018: rack 08 held 18 cases and 0 kilos at cycle 0018.\nIntake note: bin code VESPER-9310 was assigned to the frozen elderberry consignment on arrival at the cold store.\nAisle FROSTHOLD-019: rack 09 held 55 cases and 13 kilos at cycle 0019.\nAisle FROSTHOLD-020: rack 10 held 92 cases and 26 kilos at cycle 0020.\nAisle FROSTHOLD-021: rack 11 held 32 cases and 39 kilos at cycle 0021.\nAisle FROSTHOLD-022: rack 01 held 69 cases and 52 kilos at cycle 0022.\nAisle FROSTHOLD-023: rack 02 held 9 cases and 12 kilos at cycle 0023.\nAisle FROSTHOLD-024: rack 03 held 46 cases and 25 kilos at cycle 0024.\nAisle FROSTHOLD-025: rack 04 held 83 cases and 38 kilos at cycle 0025.\nAisle FROSTHOLD-026: rack 05 held 23 cases and 51 kilos at cycle 0026.\nAisle FROSTHOLD-027: rack 06 held 60 cases and 11 kilos at cycle 0027.\nAisle FROSTHOLD-028: rack 07 held 0 cases and 24 kilos at cycle 0028.\nAisle FROSTHOLD-029: rack 08 held 37 cases and 37 kilos at cycle 0029.\nAisle FROSTHOLD-030: rack 09 held 74 cases and 50 kilos at cycle 0030.\nAisle FROSTHOLD-031: rack 10 held 14 cases and 10 kilos at cycle 0031.\nAisle FROSTHOLD-032: rack 11 held 51 cases and 23 kilos at cycle 0032.\nAisle FROSTHOLD-033: rack 01 held 88 cases and 36 kilos at cycle 0033.\nAisle FROSTHOLD-034: rack 02 held 28 cases and 49 kilos at cycle 0034.\nAisle FROSTHOLD-035: rack 03 held 65 cases and 9 kilos at cycle 0035.\nAisle FROSTHOLD-036: rack 04 held 5 cases and 22 kilos at cycle 0036.\nAisle FROSTHOLD-037: rack 05 held 42 cases and 35 kilos at cycle 0037.\nAisle FROSTHOLD-038: rack 06 held 79 cases and 48 kilos at cycle 0038.\nAisle FROSTHOLD-039: rack 07 held 19 cases and 8 kilos at cycle 0039.\nAisle FROSTHOLD-040: rack 08 held 56 cases and 21 kilos at cycle 0040.\nIntake note: bin code ORCHARD-3310 was assigned to the frozen gooseberry consignment on arrival at the cold store.\nAisle FROSTHOLD-041: rack 09 held 93 cases and 34 kilos at cycle 0041.\nAisle FROSTHOLD-042: rack 10 held 33 cases and 47 kilos at cycle 0042.\nAisle FROSTHOLD-043: rack 11 held 70 cases and 7 kilos at cycle 0043.\nAisle FROSTHOLD-044: rack 01 held 10 cases and 20 kilos at cycle 0044.\nAisle FROSTHOLD-045: rack 02 held 47 cases and 33 kilos at cycle 0045.\nAisle FROSTHOLD-046: rack 03 held 84 cases and 46 kilos at cycle 0046.\nAisle FROSTHOLD-047: rack 04 held 24 cases and 6 kilos at cycle 0047.\nAisle FROSTHOLD-048: rack 05 held 61 cases and 19 kilos at cycle 0048.\nAisle FROSTHOLD-049: rack 06 held 1 cases and 32 kilos at cycle 0049.\nAisle FROSTHOLD-050: rack 07 held 38 cases and 45 kilos at cycle 0050.\nAisle FROSTHOLD-051: rack 08 held 75 cases and 5 kilos at cycle 0051.\nAisle FROSTHOLD-052: rack 09 held 15 cases and 18 kilos at cycle 0052.\nAisle FROSTHOLD-053: rack 10 held 52 cases and 31 kilos at cycle 0053.\nAisle FROSTHOLD-054: rack 11 held 89 cases and 44 kilos at cycle 0054.\nAisle FROSTHOLD-055: rack 01 held 29 cases and 4 kilos at cycle 0055.\nAisle FROSTHOLD-056: rack 02 held 66 cases and 17 kilos at cycle 0056.\nAisle FROSTHOLD-057: rack 03 held 6 cases and 30 kilos at cycle 0057.\nAisle FROSTHOLD-058: rack 04 held 43 cases and 43 kilos at cycle 0058.\nAisle FROSTHOLD-059: rack 05 held 80 cases and 3 kilos at cycle 0059.\nAisle FROSTHOLD-060: rack 06 held 20 cases and 16 kilos at cycle 0060.\nAisle FROSTHOLD-061: rack 07 held 57 cases and 29 kilos at cycle 0061.\nAisle FROSTHOLD-062: rack 08 held 94 cases and 42 kilos at cycle 0062.\nAisle FROSTHOLD-063: rack 09 held 34 cases and 2 kilos at cycle 0063.\nAisle FROSTHOLD-064: rack 10 held 71 cases and 15 kilos at cycle 0064.\nAisle FROSTHOLD-065: rack 11 held 11 cases and 28 kilos at cycle 0065.\nAisle FROSTHOLD-066: rack 01 held 48 cases and 41 kilos at cycle 0066.\nAisle FROSTHOLD-067: rack 02 held 85 cases and 1 kilos at cycle 0067.\nAisle FROSTHOLD-068: rack 03 held 25 cases and 14 kilos at cycle 0068.\nDock note: seal code HALYARD-2285 was applied to the frozen elderberry consignment at dock four.\nAisle FROSTHOLD-069: rack 04 held 62 cases and 27 kilos at cycle 0069.\nAisle FROSTHOLD-070: rack 05 held 2 cases and 40 kilos at cycle 0070.\nAisle FROSTHOLD-071: rack 06 held 39 cases and 0 kilos at cycle 0071.\nAisle FROSTHOLD-072: rack 07 held 76 cases and 13 kilos at cycle 0072.\nAisle FROSTHOLD-073: rack 08 held 16 cases and 26 kilos at cycle 0073.\nAisle FROSTHOLD-074: rack 09 held 53 cases and 39 kilos at cycle 0074.\nAisle FROSTHOLD-075: rack 10 held 90 cases and 52 kilos at cycle 0075.\nAisle FROSTHOLD-076: rack 11 held 30 cases and 12 kilos at cycle 0076.\nAisle FROSTHOLD-077: rack 01 held 67 cases and 25 kilos at cycle 0077.\nAisle FROSTHOLD-078: rack 02 held 7 cases and 38 kilos at cycle 0078.\nAisle FROSTHOLD-079: rack 03 held 44 cases and 51 kilos at cycle 0079.\nAisle FROSTHOLD-080: rack 04 held 81 cases and 11 kilos at cycle 0080.\nAisle FROSTHOLD-081: rack 05 held 21 cases and 24 kilos at cycle 0081.\nAisle FROSTHOLD-082: rack 06 held 58 cases and 37 kilos at cycle 0082.\nAisle FROSTHOLD-083: rack 07 held 95 cases and 50 kilos at cycle 0083.\nAisle FROSTHOLD-084: rack 08 held 35 cases and 10 kilos at cycle 0084.\nAisle FROSTHOLD-085: rack 09 held 72 cases and 23 kilos at cycle 0085.\nAisle FROSTHOLD-086: rack 10 held 12 cases and 36 kilos at cycle 0086.\nAisle FROSTHOLD-087: rack 11 held 49 cases and 49 kilos at cycle 0087.\nAisle FROSTHOLD-088: rack 01 held 86 cases and 9 kilos at cycle 0088.\nAisle FROSTHOLD-089: rack 02 held 26 cases and 22 kilos at cycle 0089.\nAisle FROSTHOLD-090: rack 03 held 63 cases and 35 kilos at cycle 0090.\nAisle FROSTHOLD-091: rack 04 held 3 cases and 48 kilos at cycle 0091.\nAisle FROSTHOLD-092: rack 05 held 40 cases and 8 kilos at cycle 0092.\n\nQuestion: What are the bin code and the seal code recorded for the frozen elderberry consignment? Answer with both codes."
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {
+        "type": "contains_all",
+        "value": [
+          "VESPER-9310"
+        ]
+      },
+      {
+        "type": "contains_all",
+        "value": [
+          "HALYARD-2285"
+        ]
+      }
+    ]
+  },
+  "tags": [
+    "long-context",
+    "multi-hop"
+  ],
+  "notes": "Deterministic: fully synthetic static filler (6830 chars), temperature 0, repeats 1, a single mechanical pass condition. Bin line sits at about 20 percent and seal line at about 74 percent of the log. Brittleness: finding only one of the two codes fails the two-part condition."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "str_array_objects_01",
+  "class": "structured_output",
+  "title": "Array of exactly two typed line-item objects",
+  "severity": "medium",
+  "rationale": "Pick-list exports feed warehouse automation; a non-array wrapper, a string quantity or a third item corrupts the batch and stalls order fulfilment.",
+  "evidence_ids": [],
+  "prompt": [
+    {"role": "system", "content": "You are a pick-list formatter. Reply with a JSON array and nothing else: no commentary, no markdown, no code fences."},
+    {"role": "user", "content": "Pick list for order KX-555 contains exactly two line items: SKU KX-11 with quantity 3, then SKU BR-27 with quantity 5.\n\nReturn exactly this JSON array with two objects and no extra keys:\n[{\"sku\": \"KX-11\", \"qty\": 3}, {\"sku\": \"BR-27\", \"qty\": 5}]\n\nOutput only the JSON, no prose."}
+  ],
+  "params": {"temperature": 0, "max_tokens": 256},
+  "repeats": 1,
+  "scoring": {
+    "type": "all_of",
+    "units": [
+      {"type": "json_schema", "schema": {"type": "array", "items": {"type": "object", "properties": {"sku": {"type": "string"}, "qty": {"type": "integer"}}, "required": ["sku", "qty"], "additionalProperties": false}}},
+      {"type": "regex", "pattern": "\\[\\s*\\{[^{}]*\\}\\s*,\\s*\\{[^{}]*\\}\\s*\\]"},
+      {"type": "contains_all", "value": ["KX-11", "BR-27"]}
+    ]
+  },
+  "tags": ["json", "array"],
+  "notes": "Deterministic: static prompt, temperature 0; both SKUs and quantities are fixed. Extraction accepts a bare JSON value or one fenced block, and the regex units still match inside a fence. The regex enforces exactly two object elements because the supported schema subset has no minItems or maxItems, and contains_all pins the two SKUs. Brittleness: quantities are type-checked but not value-checked, so a schema-valid integer quantity other than 3 or 5 still passes."
+}

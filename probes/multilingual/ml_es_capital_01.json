@@ -1,0 +1,29 @@
+{
+  "id": "ml_es_capital_01",
+  "class": "multilingual",
+  "title": "Spanish prompt: capital of France",
+  "severity": "medium",
+  "rationale": "Spanish-speaking users asking a basic geography question should get the correct city; a wrong capital in a localized assistant erodes trust and can mislead students.",
+  "evidence_ids": [],
+  "prompt": [
+    {
+      "role": "system",
+      "content": "Eres un asistente preciso. Responde en español con una sola frase breve y sin explicaciones."
+    },
+    {
+      "role": "user",
+      "content": "¿Cuál es la capital de Francia?"
+    }
+  ],
+  "params": {
+    "temperature": 0,
+    "max_tokens": 64
+  },
+  "repeats": 1,
+  "scoring": {
+    "type": "contains_any",
+    "value": ["paris", "parís"]
+  },
+  "tags": ["spanish", "geography", "factual"],
+  "notes": "Language: Spanish. Expected answer token: París, accepted with or without the accent (Paris/parís) because models routinely drop diacritics; matching is case-insensitive. Deterministic: static prompt, temperature 0. Brittleness: naming a region or another French city fails, and an English reply such as 'Paris' still passes the answer token, so this probe checks the fact rather than the reply language."
+}
