@@ -58,6 +58,6 @@ Mechanical scoring is a filter, not a substitute for careful human review.
 
 ## Contributing evidence and probes
 
-Evidence contributions need a real source URL from a search or API result, an exact quote of at most 200 characters when verifiable, and status `cited`; `tested` requires a real run. Probes need a static prompt, one defensible pass condition, a mechanical rule, and a rationale. Tests must run offline without an API key; new probes should pass `python -m failbench validate`. Code is MIT; evidence and probe data are CC-BY-4.0. The repository is at {{REPO_URL}}.
+Evidence contributions need a real source URL from a search or API result, an exact quote of at most 200 characters when verifiable, and status `cited`; `tested` requires a real run. Probes need a static prompt, one defensible pass condition, a mechanical rule, and a rationale. Tests must run offline without an API key; new probes should pass `python -m failbench validate`. Code is MIT; evidence and probe data are CC-BY-4.0. The repository is at https://github.com/Qin-z-x/llm-failbench.
 
 *Disclosure: this article and the project were developed with AI assistance under human direction and review; the `ai_disclosure_level: some_ai` front-matter field records that. The human maintainer is accountable for the claims here, and corrections are welcome.*

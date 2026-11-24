@@ -34,7 +34,7 @@ attributes to it (§5). URLs with non-200 statuses are either (a) intentionally 
 negative evidence, (b) rate-limit artifacts, or (c) flaky third-party mirrors — not unverified claims
 presented as working channels.
 
-**Templates excluded from testing (by design):** `{{REPO_URL}}` (the single owner substitution token used
+**Templates excluded from testing (by design):** `https://github.com/Qin-z-x/llm-failbench` (the single owner substitution token used
 across the drafts — not a URL and therefore not counted above), three
 `https://img.shields.io/github/.../OWNER/REPO` badge templates inside the two table-format awesome-list
 snippets, and one `https://project-url` inside a quoted description of a list's own entry format. These are
@@ -208,5 +208,5 @@ secondary sources. The URLs above are real and are the ones to open.
   pages for all six lists return 200.
 - The three badge/badge-like URLs that contain `OWNER/REPO` placeholders are formatting templates, not
   live URLs, and cannot be tested until the repository owner publishes and fills them in.
-- `{{REPO_URL}}` tokens are intentional and documented in `launch/README.md`; they are not broken links.
+- `https://github.com/Qin-z-x/llm-failbench` tokens are intentional and documented in `launch/README.md`; they are not broken links.
   They must be substituted before posting, and `launch/README.md` is the single substitution checklist.

@@ -33,7 +33,7 @@ plainly (see §10). Nothing here claims a benchmark measurement that the reposit
 
 Do not start the calendar until all of these are true:
 
-- [ ] Repository is public with a final URL; substitute `{{REPO_URL}}` in every `launch/*.md` draft.
+- [ ] Repository is public with a final URL; substitute `https://github.com/Qin-z-x/llm-failbench` in every `launch/*.md` draft.
 - [ ] `LICENSE` (MIT), `CITATION.cff`, `README.md`, `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`,
       `SECURITY.md` are present and reviewed.
 - [ ] CI is green on the publish commit; `python -m failbench validate --strict`, the offline

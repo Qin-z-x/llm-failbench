@@ -1,5 +1,5 @@
 <!--
-DRAFT (not posted). Venue: LinkedIn. Before posting: repo must be public, {{REPO_URL}} substituted,
+DRAFT (not posted). Venue: LinkedIn. Before posting: repo must be public, https://github.com/Qin-z-x/llm-failbench substituted,
 and docs/DISTRIBUTION.md §11 platform rules re-read on the day of posting. Word count: 292 (body
 below, including the hashtag line and command lines, excluding this comment). Counted 2026-11-24.
 -->
@@ -21,7 +21,7 @@ The offline mock demo runs in seconds with no network; point the runner at any O
 
 Status: v0.1.0 pre-release. The committed demo run covers all 100 probes — 64 pass, 34 fail, 2 error — from the deterministic mock provider, not measurements of any real model; no live model endpoint was available during the build. Run it on your own endpoint for real numbers.
 
-Repository: {{REPO_URL}}
+Repository: https://github.com/Qin-z-x/llm-failbench
 
 Feedback on probe design, scoring and missing evidence is welcome via issues/PRs.
 

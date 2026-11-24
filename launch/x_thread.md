@@ -2,8 +2,8 @@
 
 Drafts only — owner posts manually from their own account.
 
-- 8 tweets below, each within the 280-character limit. Character counts are drafting annotations, not part of the tweet text; they are exact for the text as written (including line breaks, counting `{{REPO_URL}}` as 12 characters).
-- `{{REPO_URL}}` must be replaced with the real public repository URL at posting time. X wraps links to 23 characters, so a substituted URL shortens the effective count rather than growing it; tweet 8 stays under 280 even if the URL is counted literally.
+- 8 tweets below, each within the 280-character limit. Character counts are drafting annotations, not part of the tweet text; they are exact for the text as written (including line breaks, counting `https://github.com/Qin-z-x/llm-failbench` as 12 characters).
+- `https://github.com/Qin-z-x/llm-failbench` must be replaced with the real public repository URL at posting time. X wraps links to 23 characters, so a substituted URL shortens the effective count rather than growing it; tweet 8 stays under 280 even if the URL is counted literally.
 - The thread describes the project as v0.1.0 pre-release. If the repository is not public yet, do not post; there is nothing to try.
 - Do not claim human-only authorship. The project was built with AI assistance, and tweet 1 says so plainly; disclose it again if asked. Do not imply that committed demo results are real-model measurements.
 - No engagement bait appears below: no requests to like, retweet, follow, star, or vote. Do not add any before posting.
@@ -92,16 +92,16 @@ Mechanical, no judge, useful across model or prompt changes.
 ## Tweet 8/8 — call for evidence and probe contributions
 
 ```
-If you know a failure mode with a good public source, or want to propose a probe with one unambiguous pass condition, the issue and PR templates are open. Corrections to existing evidence records are especially welcome. {{REPO_URL}}
+If you know a failure mode with a good public source, or want to propose a probe with one unambiguous pass condition, the issue and PR templates are open. Corrections to existing evidence records are especially welcome. https://github.com/Qin-z-x/llm-failbench
 ```
 
-*Character count: 232 / 280 as written (12-char placeholder); lower once `{{REPO_URL}}` is substituted and X wraps the link.*
+*Character count: 232 / 280 as written (12-char placeholder); lower once `https://github.com/Qin-z-x/llm-failbench` is substituted and X wraps the link.*
 
 ---
 
 ## Before posting — checklist
 
-- [ ] `{{REPO_URL}}` is substituted with the real public repository URL (substitute it in tweet 8, and in tweets 4-5 only if you choose to add it there — do not add a link that does not work).
+- [ ] `https://github.com/Qin-z-x/llm-failbench` is substituted with the real public repository URL (substitute it in tweet 8, and in tweets 4-5 only if you choose to add it there — do not add a link that does not work).
 - [ ] Every command in tweets 4, 5, and 7 matches the current CLI in the repository at posting time.
 - [ ] The committed demo results are still labeled as mock-provider output; no tweet implies they measure a real model.
 - [ ] No request to like, retweet, follow, star, or vote has been added.

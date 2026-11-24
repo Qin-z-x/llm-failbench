@@ -9,6 +9,8 @@ failures with real source URLs. The same kit runs against any OpenAI-compatible
 `/chat/completions` endpoint and provides a CI regression gate, an offline replay
 path and a self-contained static dashboard.
 
+Repository: <https://github.com/Qin-z-x/llm-failbench>
+
 **Status: pre-release v0.1.0.** The committed demo results were produced by the
 deterministic `mock` provider shipped with the kit, not by a live model
 endpoint. No live-model numbers are claimed anywhere in this repository. From

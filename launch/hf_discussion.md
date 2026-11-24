@@ -1,6 +1,6 @@
 # Hugging Face community discussion draft
 
-**Status:** draft only, not posted. Publish only after the repository is public, `{{REPO_URL}}` is
+**Status:** draft only, not posted. Publish only after the repository is public, `https://github.com/Qin-z-x/llm-failbench` is
 substituted, and the rules below are re-read on the day of posting (see `docs/DISTRIBUTION.md`).
 
 ## Suggested venue
@@ -39,7 +39,7 @@ Honest status: v0.1.0 is a pre-release. The committed demo run covers all 100 pr
 
 If you have an HF-hosted model behind an OpenAI-compatible endpoint, I would like to see what the probes report for it, including the failures. Corrections to scoring rules, evidence links, or probe prompts are welcome, and so are new probes with a defensible pass condition. Please share run configs when you report results so others can reproduce them.
 
-Repository: {{REPO_URL}}
+Repository: https://github.com/Qin-z-x/llm-failbench
 
 Thanks for reading, and I will answer questions in the thread.
 

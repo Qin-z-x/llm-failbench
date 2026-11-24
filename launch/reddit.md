@@ -9,7 +9,7 @@
 **State this file assumes (from `docs/CONTRACT.md`):** FailBench v0.1.0 pre-release; code MIT, data CC-BY-4.0;
 the committed demo results come from the deterministic **mock** provider and are **not** measurements of any real model;
 no live model endpoint existed during the build; no users, stars, testimonials, downloads, or adoption claims exist.
-Nothing here is auto-posted. `{{REPO_URL}}` is the only substitution token — substitute it after the repository is public
+Nothing here is auto-posted. `https://github.com/Qin-z-x/llm-failbench` is the only substitution token — substitute it after the repository is public
 (convention from `launch/README.md`); do **not** invent a GitHub URL now.
 
 **Cadence (from `docs/DISTRIBUTION.md` §4–§5):** one subreddit per day, at least three days apart — plan is
@@ -21,7 +21,7 @@ do not paste one into two subs.
 
 ## 0. Pre-flight checklist (do before the first Reddit post)
 
-- [ ] `{{REPO_URL}}` substituted in the draft being posted (exactly one per body); repository public and reachable.
+- [ ] `https://github.com/Qin-z-x/llm-failbench` substituted in the draft being posted (exactly one per body); repository public and reachable.
 - [ ] On a clean machine with plain Python 3.9+ (no venv, no install), the offline demo actually runs:
       `python -m failbench run --provider mock --demo --out results/demo`, and the `report` and `gate` commands below
       exist and work on the published tree. If a command changed, edit the draft to match the README.
@@ -76,7 +76,7 @@ I've been building FailBench, an open benchmark plus evidence atlas for LLM fail
 
 **Honest status of the results.** The committed demo run covers all 100 probes: 64 pass, 34 fail, 2 error, and came from that deterministic mock provider. They are not measurements of any real model. No live model endpoint was available while I was building this, so the release contains no real-model benchmark numbers. For real numbers, run the kit against your own endpoint; do not read the demo pass rates as model results.
 
-**What I'm asking for.** Methodology critique first: are any probes ambiguous or trivially gameable; does a substring-style check measure the failure class it claims to measure; where is coverage thin? Mechanical scoring is a deliberate trade-off: a model can pass by emitting the expected string, and the public corpus can be overfitted to. I treat the score as a single-endpoint regression signal, not a capability ranking. Second, evidence and probe contributions: dead links, misattributed sources, better probe designs are welcome. Code is MIT, data is CC-BY-4.0, and there is no paid tier or signup behind it. Repository: {{REPO_URL}}
+**What I'm asking for.** Methodology critique first: are any probes ambiguous or trivially gameable; does a substring-style check measure the failure class it claims to measure; where is coverage thin? Mechanical scoring is a deliberate trade-off: a model can pass by emitting the expected string, and the public corpus can be overfitted to. I treat the score as a single-endpoint regression signal, not a capability ranking. Second, evidence and probe contributions: dead links, misattributed sources, better probe designs are welcome. Code is MIT, data is CC-BY-4.0, and there is no paid tier or signup behind it. Repository: https://github.com/Qin-z-x/llm-failbench
 
 I'll answer questions in the thread. The project was built with substantial AI assistance under my direction and review; I'm the human accountable for what's published.
 <!-- BODY:END rml -->
@@ -141,7 +141,7 @@ That exercises the runner and the static report offline, no API key. For your ow
 
 Honest status: the committed demo run covers all 100 probes — 64 pass, 34 fail, 2 error — and comes from the deterministic mock provider. They are not measurements of any real model. No live endpoint was available during the build, so there are no real-model numbers in this release — run it yourself for those.
 
-What I want: reports from people running it against local models, with hardware, model, quant, and engine settings. Probe ideas for failures that show up specifically in local deployments (long context, tool-call formatting, multilingual). And pushback: which checks are too brittle to be useful in practice? Repo: {{REPO_URL}}
+What I want: reports from people running it against local models, with hardware, model, quant, and engine settings. Probe ideas for failures that show up specifically in local deployments (long context, tool-call formatting, multilingual). And pushback: which checks are too brittle to be useful in practice? Repo: https://github.com/Qin-z-x/llm-failbench
 
 I'm the maintainer; the project was built with AI assistance under my review, and I don't claim otherwise. Questions welcome in the thread.
 <!-- BODY:END localllama -->
@@ -205,7 +205,7 @@ Honest status: the committed demo run covers all 100 probes — 64 pass, 34 fail
 
 Useful feedback for me: whether the exit-code gate matches how you would wire a regression check; whether the probe format is reasonable to contribute to, or too rigid; coverage gaps around tool-calling, structured output, and agent loops; and where mechanical scoring will be too brittle in practice. It is deliberately not a leaderboard — the corpus is public and mechanical, so it can be gamed — and I would rather it be a cheap per-endpoint regression gate than a ranking. Corrections to the 110 evidence records are equally welcome.
 
-Repo: {{REPO_URL}}
+Repo: https://github.com/Qin-z-x/llm-failbench
 
 Built with substantial AI assistance under human direction and review; MIT code, CC-BY-4.0 data; I'll be in the thread to answer questions.
 <!-- BODY:END llmdevs -->

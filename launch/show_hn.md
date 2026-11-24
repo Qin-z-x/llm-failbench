@@ -12,7 +12,7 @@
 > - **The post must be tryable.** HN's Show HN guideline is *"Show HN is for something you've made that other people can play with."* The repository must be public, the demo runnable, and no signup or email barrier should be in the way. This is a post about a runnable artifact, not a blog post, landing page, newsletter, or launch announcement.
 > - **No vote or comment solicitation.** Do not ask for upvotes, comments, or stars, and do not ask friends or colleagues to upvote or comment.
 > - **Disclose AI assistance if asked** and never claim human-only authorship.
-> - Replace every `{{REPO_URL}}` with the real public repository URL at posting time. Nothing in this file claims the project is already published.
+> - Replace every `https://github.com/Qin-z-x/llm-failbench` with the real public repository URL at posting time. Nothing in this file claims the project is already published.
 
 ---
 
@@ -46,7 +46,7 @@ Character counts were checked against the exact strings above. Titles deliberate
 
 ## 2. Posting body — draft for the "text" field
 
-Use this for a text post whose subject is the runnable repository, not a launch announcement: the try-it command leads the body so a reader can already run something. If submitting `{{REPO_URL}}` as a link post instead, keep the same title and post the body below as the **first comment**, with the "Honest status" paragraph in the first few lines.
+Use this for a text post whose subject is the runnable repository, not a launch announcement: the try-it command leads the body so a reader can already run something. If submitting `https://github.com/Qin-z-x/llm-failbench` as a link post instead, keep the same title and post the body below as the **first comment**, with the "Honest status" paragraph in the first few lines.
 
 Rewrite it in your own words before submitting; per HN's current guidelines the final text must be written by the person posting. These are preparation notes, not text to paste.
 
@@ -90,7 +90,7 @@ The committed demo run covers all 100 probes: 64 pass, 34 fail, 2 error. It was 
 
 Contributions and corrections
 
-The evidence atlas is the part most likely to be wrong or incomplete, so corrections are welcome: dead links, misattributed sources, bad summaries, missing failure modes, probes with ambiguous pass conditions. Issues and pull requests: {{REPO_URL}}. Code is MIT; evidence and probe data are CC-BY-4.0.
+The evidence atlas is the part most likely to be wrong or incomplete, so corrections are welcome: dead links, misattributed sources, bad summaries, missing failure modes, probes with ambiguous pass conditions. Issues and pull requests: https://github.com/Qin-z-x/llm-failbench. Code is MIT; evidence and probe data are CC-BY-4.0.
 ```
 
 Length note for the owner: HN allows long text, but a shorter post usually reads better. If you trim, keep the "Honest status" paragraph and the run commands; drop sentences, not honesty.
@@ -154,7 +154,7 @@ There is no verified data behind any specific "best time" claim, including the u
 
 ## 6. Pre-flight checklist before posting
 
-- [ ] `{{REPO_URL}}` is substituted with the real public repository URL, and the repository is publicly reachable.
+- [ ] `https://github.com/Qin-z-x/llm-failbench` is substituted with the real public repository URL, and the repository is publicly reachable.
 - [ ] On a clean machine with plain Python (3.9+, no extra packages), the offline demo runs: `python -m failbench run --provider mock --demo --out results/demo`.
 - [ ] Committed demo results are labeled as mock-provider output, and `docs/RESULTS.md` / README / dashboard carry the honest-status paragraph.
 - [ ] The data and code licences are stated (code MIT, data CC-BY-4.0).

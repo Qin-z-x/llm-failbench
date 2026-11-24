@@ -5,7 +5,7 @@
 **Scope:** 3 real venues — a publication, an AI-engineering publication/podcast, and an ML podcast — whose
 official pages I verified this session. **Nothing here has been emailed, posted, or submitted.**
 
-> **Single substitution:** pitches below use the token `{{REPO_URL}}`, which the owner replaces with the
+> **Single substitution:** pitches below use the token `https://github.com/Qin-z-x/llm-failbench`, which the owner replaces with the
 > final public repo URL after publishing. That is the only substitution. No live GitHub URL is invented, the
 > project is **not** claimed to be listed or covered anywhere yet, and no real-model results may be claimed:
 > the committed demo run uses the deterministic **mock** provider.
@@ -69,7 +69,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   > tell you." The argument is practical, not promotional: LLM-as-judge scores are useful but expensive and
   > contestable, so a deterministic probe suite with mechanical pass/fail rules is a complementary regression
   > tool, and its limits (it measures failures, not quality) are as interesting as its uses. I built a small
-  > open-source artifact along these lines, FailBench ({{REPO_URL}}), now v0.1.0 pre-release; its committed
+  > open-source artifact along these lines, FailBench (https://github.com/Qin-z-x/llm-failbench), now v0.1.0 pre-release; its committed
   > demo results come from a deterministic mock provider, not real model measurements, and I'd disclose that
   > in the piece. I'm happy to send an outline or full draft.
 - **Status:** **Open to unsolicited pitches via the official form** (verified). This is a writing pitch, not
@@ -91,7 +91,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   pages, so this is a **tips channel only**: send one short, factual tip; do not pitch a podcast guest and
   do not use the business address for editorial tips.
 - **One-paragraph pitch (≤120 words):**
-  > Hi — tip for the Latent Space team: I built an open-source probe kit, FailBench ({{REPO_URL}}), that runs
+  > Hi — tip for the Latent Space team: I built an open-source probe kit, FailBench (https://github.com/Qin-z-x/llm-failbench), that runs
   > deterministic, judge-free failure probes across 10 LLM failure classes with fully mechanical scoring — no
   > LLM judge, no third-party Python dependencies, and an offline mock-provider demo so you can see the
   > outputs without an API key. It's v0.1.0 pre-release; the committed demo results are from the mock
@@ -120,7 +120,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   > Hi — using your contact form's "Recommend a Guest" option: I'd like to suggest a conversation about
   > judge-free evaluation: deterministic, mechanically scored probes as a regression tool for LLM failure
   > modes, where they help, and where LLM-as-judge is still needed. I'm happy to appear as maintainer, or to
-  > suggest a different guest if that is a better fit; I maintain FailBench ({{REPO_URL}}), a v0.1.0
+  > suggest a different guest if that is a better fit; I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a v0.1.0
   > pre-release open-source probe kit covering 10 failure classes with no LLM judges and an offline mock
   > demo — its committed results are from the deterministic mock provider, not real model measurements. If
   > it's not a fit for the show, no problem at all; I appreciate the work you all do.

@@ -9,9 +9,9 @@ published. No fake accounts, no vote solicitation, no engagement buying.
 
 The project does not have a final public URL at build time, so drafts use one explicit token:
 
-- `{{REPO_URL}}` — replace with the final public repository URL after `v0.1.0` is published
+- `https://github.com/Qin-z-x/llm-failbench` — replace with the final public repository URL after `v0.1.0` is published
   (e.g. `https://github.com/<owner>/<repo>`). This is the **only** substitution required. If a draft
-  mentions a website/Pages URL, use `{{REPO_URL}}` plus the path, and only if that deployment exists.
+  mentions a website/Pages URL, use `https://github.com/Qin-z-x/llm-failbench` plus the path, and only if that deployment exists.
 
 After substitution, re-check every draft for claims that may have drifted:
 
