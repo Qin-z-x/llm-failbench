@@ -44,7 +44,7 @@ from .schema import (
 
 __all__ = ["render", "HONESTY_SENTENCE"]
 
-VERSION = "0.1.1"
+VERSION = "0.2.0"
 
 #: Required verbatim honesty sentence (docs/CONTRACT.md section 1). Both the
 #: committed Markdown report and the generated site must contain this exact

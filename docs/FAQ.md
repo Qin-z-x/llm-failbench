@@ -1,6 +1,6 @@
 # FailBench FAQ
 
-These answers describe FailBench version 0.1.0 as shipped in this repository. For the
+These answers describe FailBench version 0.2.0 as shipped in this repository. For the
 measurement definitions behind them, see [`METHODOLOGY.md`](METHODOLOGY.md); for the
 normative schemas and scoring semantics, see [`CONTRACT.md`](CONTRACT.md).
 
@@ -11,7 +11,7 @@ for one endpoint at a time; it does not rank models, compute an aggregate qualit
 or publish a public leaderboard. Its intended use is a fast regression gate ("did this
 deployment change break a behaviour that used to work?") plus an evidence atlas of
 publicly reported failures. Cross-model or cross-run comparisons are descriptive only and
-carry no significance claim at v0.1.0.
+carry no significance claim at v0.2.0.
 
 ## Why deterministic scoring instead of an LLM judge?
 
@@ -83,7 +83,7 @@ not legal advice.
 ## How do I cite FailBench?
 
 Use the metadata in [`../CITATION.cff`](../CITATION.cff). A suitable prose form is:
-"FailBench contributors. FailBench (Version 0.1.0) [Computer software]. 2026." The
+"FailBench contributors. FailBench (Version 0.2.0) [Computer software]. 2026." The
 citation file intentionally omits a repository URL until the project's public location is
 fixed, and no DOI is assigned yet; if you need a stable identifier, archive the version
 you used (for example a release tarball or Zenodo-style archive you control) and cite
@@ -159,7 +159,7 @@ comparisons.
 
 ## How long does a run take, and what will it cost?
 
-No fixed figures are claimed. At v0.1.0 a full run makes about 120 model calls: 90
+No fixed figures are claimed. At v0.2.0 a full run makes about 120 model calls: 90
 single-repeat probes plus ten three-repeat probes, before any configured retries, plus one
 call per retry for retryable provider errors. Cost is the sum over those calls of input
 tokens times the endpoint's input price plus completion tokens times its output price;
@@ -174,7 +174,7 @@ The atlas is a curated set of real, linked public reports, not an independent
 verification. Each record must have a reachable source URL, a short neutral summary, and
 verbatim quotes only where exact text was verified; popularity metrics (Hacker News
 points and comments, and GitHub reactions and comments) are attention signals, not
-quality, severity, or prevalence. In v0.1.0 every record has `status: "cited"`, because no live model runs were
+quality, severity, or prevalence. In v0.2.0 every record has `status: "cited"`, because no live model runs were
 available to reproduce the reports; `tested` is reserved for records backed by a real
 run reference. Reports are self-reported and can misdiagnose a cause, so treat the atlas
 as evidence that someone publicly reported a phenomenon, and check the linked sources.
@@ -194,7 +194,7 @@ and no security-response SLA.
 
 ## What is the release status, and are the formats stable?
 
-Version 0.1.0 (2026-11-24) is a pre-1.0 release. While the project is pre-1.0, minor
+Version 0.2.0 (2026-11-24) is a pre-1.0 release. While the project is pre-1.0, minor
 releases may include changes that are not backward compatible, and the data artifacts
 (the probe corpus and evidence atlas) change with the package version. This release
 contains no live-model measurements: the committed demo uses the mock provider, and the

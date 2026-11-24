@@ -9,7 +9,7 @@ published. No fake accounts, no vote solicitation, no engagement buying.
 
 The project does not have a final public URL at build time, so drafts use one explicit token:
 
-- `https://github.com/Qin-z-x/llm-failbench` — replace with the final public repository URL after `v0.1.0` is published
+- `https://github.com/Qin-z-x/llm-failbench` — replace with the final public repository URL after `v0.2.0` is published
   (e.g. `https://github.com/<owner>/<repo>`). This is the **only** substitution required. If a draft
   mentions a website/Pages URL, use `https://github.com/Qin-z-x/llm-failbench` plus the path, and only if that deployment exists.
 
@@ -17,7 +17,7 @@ After substitution, re-check every draft for claims that may have drifted:
 
 1. **Demo honesty line** — the committed demo uses the deterministic mock provider; it is not a
    measurement of any model. This line must remain in every draft that shows results.
-2. **Counts** — frozen v0.1.0 numbers are already in the drafts: 100 probes (10 per class; severity 5
+2. **Counts** — frozen v0.2.0 numbers are already in the drafts: 100 probes (10 per class; severity 5
    critical / 34 high / 43 medium / 18 low), 110 cited evidence records (54 Hacker News, 46 arXiv, 10 GitHub
    issues), and the committed demo run: 100 probes, 64 pass / 34 fail / 2 error, deterministic mock provider
    only. Re-check the README count table before posting if the repository changed.
@@ -73,5 +73,5 @@ Full detail: `../docs/DISTRIBUTION.md` §9–§10. Transparency policy: §10.
 
 ## Timeline reminder
 
-v0.1.0 is a pre-release. The launch is an invitation to test, critique, and contribute evidence —
+v0.2.0 is a pre-release. The launch is an invitation to test, critique, and contribute evidence —
 not a victory lap. If a channel underperforms, improve the artifact; do not repost or solicit votes.

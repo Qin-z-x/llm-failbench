@@ -1,6 +1,6 @@
 # FailBench Methodology
 
-Version 0.1.0. This document describes how FailBench measures model behaviour, what
+Version 0.2.0. This document describes how FailBench measures model behaviour, what
 the measurements mean, and where they stop being trustworthy. The normative schemas
 and scoring semantics live in [`CONTRACT.md`](CONTRACT.md); the class definitions live
 in [`TAXONOMY.md`](TAXONOMY.md); this document is the explanatory layer.
@@ -38,7 +38,7 @@ model.
 - **Leaderboard rankings, prevalence, or production failure rates.** Pass rates on a
   fixed public corpus are not estimates of how often a failure occurs in deployment.
 - **Statistical inference.** No confidence intervals, significance tests, or
-  model-comparison statistics are claimed at v0.1.0; see section 8.
+  model-comparison statistics are claimed at v0.2.0; see section 8.
 - **Multimodal, training-time, or serving-infrastructure properties.** FailBench sends
   text to a chat-completions endpoint and observes text back.
 
@@ -105,7 +105,7 @@ impact differently; the label is never inferred from a model's output.
 ### 2.5 Repeats (1-5)
 
 `repeats` controls how many independent attempts are made for a probe. The allowed range
-is 1-5. In the v0.1.0 corpus most probes use `repeats: 1`; the `determinism_calibration`
+is 1-5. In the v0.2.0 corpus most probes use `repeats: 1`; the `determinism_calibration`
 class uses `repeats: 3` because its subject is stability across identical calls. Repeats
 are not used as a way to average away noise. A probe passes only if **every** repeat
 passes (section 5).
@@ -114,7 +114,7 @@ passes (section 5).
 
 A probe may reference evidence records through `evidence_ids`; evidence records may
 reference probes through `probe_ids`. Both fields are optional in the schema. In the
-v0.1.0 corpus the binding between the two halves is the shared class vocabulary, and the
+v0.2.0 corpus the binding between the two halves is the shared class vocabulary, and the
 explicit cross-reference lists shipped in the files are empty. They are validated when
 present and are intended to become populated as the atlas matures.
 
@@ -252,7 +252,7 @@ mix, filterable per-probe severity, and orders failure examples by severity, cla
 probe ID.
 
 The regression **gate** (`failbench/gate.py`) is status-based, not severity-weighted. At
-v0.1.0 it compares a baseline and a current results document and flags:
+v0.2.0 it compares a baseline and a current results document and flags:
 
 - a probe whose status got worse on the scale `pass` (best) < `fail` < `error` (worst);
 - a probe that exists in the baseline and is missing from the current run;
@@ -305,7 +305,7 @@ not artifact hashes.
 - **Counts** (`counts.probes`, `counts.pass`, `counts.fail`, `counts.error`) partition
   the attempted probes. Per-class counts use the same definitions and are keyed by the
   fixed class names.
-- **No significance testing and no confidence intervals are claimed at v0.1.0.** With
+- **No significance testing and no confidence intervals are claimed at v0.2.0.** With
   roughly ten probes per class, a single probe moves a class pass rate by about ten
   percentage points. Ranking classes or models by these pass rates, or comparing runs
   across dates, is descriptive only and is not a statistical claim.
@@ -318,10 +318,10 @@ not artifact hashes.
 
 Table 1 is the single place where the volatile corpus counts for this release are
 recorded. It was computed from `probes/**/*.json`, `data/evidence/*.jsonl`, and the
-committed demo results at the time of writing (2026-11-24, v0.1.0). Numbers will change
+committed demo results at the time of writing (2026-11-24, v0.2.0). Numbers will change
 as the corpus evolves.
 
-**Table 1. Corpus composition and committed demo status (v0.1.0 snapshot).**
+**Table 1. Corpus composition and committed demo status (v0.2.0 snapshot).**
 
 | Class | Probes | Critical | High | Medium | Low | Atlas records | Demo pass | Demo fail | Demo error |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -362,12 +362,12 @@ when all of the following hold:
   prohibited.
 - **Honest status.** `status` is `cited` by default. `tested` requires a real live run
   reference in `notes`; `refuted` requires a cited source that contradicts the claim.
-  All records in the v0.1.0 atlas are `cited`, because no live model runs were available.
+  All records in the v0.2.0 atlas are `cited`, because no live model runs were available.
 - **Optional popularity metrics only.** Allowed keys are `hn_points`, `hn_comments`,
   `github_reactions`, `github_comments`, `reddit_upvotes`, `reddit_comments`,
   `citations`, and `stars`, all non-negative integers. A missing metric is omitted, never
   guessed. Popularity is a discussion signal, not quality, severity, or prevalence. In
-  the v0.1.0 atlas the recorded metrics are Hacker News points/comments and GitHub
+  the v0.2.0 atlas the recorded metrics are Hacker News points/comments and GitHub
   reactions/comments; the `citations` and `stars` keys are schema-permitted but not
   populated in this build.
 - **Provenance.** `collected_by` and `collected_at` are required, so each record can be
@@ -417,12 +417,12 @@ non-transferable. They are stated so readers can discount the numbers appropriat
    configuration problem. Assigning a report to one of ten classes involves judgement,
    and multi-failure reports are coded to the dominant failure. Popularity metrics
    reflect timing and headline wording more than importance.
-7. **Uneven class coverage.** Each class has ten probes at v0.1.0, but the behaviours
+7. **Uneven class coverage.** Each class has ten probes at v0.2.0, but the behaviours
    differ in difficulty and the severity mixes differ (5 critical versus 43 medium
    probes overall). Class pass rates are not comparable, and a single probe moves a class
    rate by about ten percentage points.
 8. **Small samples and no inference.** There are no confidence intervals, no
-   significance tests, and no multiplicity correction at v0.1.0. Comparisons between
+   significance tests, and no multiplicity correction at v0.2.0. Comparisons between
    models, runs, or dates are descriptive only.
 9. **Reproducibility only within a documented environment.** Artifacts record Python
    version, platform, run ID, timestamps, and configuration, and the mock demo is
@@ -487,7 +487,7 @@ python -m failbench gate \
 Expected behaviour:
 
 - `validate --strict` prints an `OK` line with the probe and evidence counts and exits
-  zero when the corpus is valid. The exact v0.1.0 counts are in Table 1.
+  zero when the corpus is valid. The exact v0.2.0 counts are in Table 1.
 - `run --demo` exits zero, writes `results/demo/results.json` and
   `results/demo/raw.jsonl`, and prints a summary. A completed run exits zero even when
   probes fail; probe failures are the measurement.
@@ -540,7 +540,7 @@ in [`CONTRACT.md`](CONTRACT.md). The short version:
 
 ## 14. Versioning and change expectations
 
-This document describes v0.1.0, a pre-1.0 release. Schemas, scoring rules, probe counts,
+This document describes v0.2.0, a pre-1.0 release. Schemas, scoring rules, probe counts,
 and counts in Table 1 can change in later releases, and the data artifacts change with
 the package version. For changes, see [`../CHANGELOG.md`](../CHANGELOG.md); the release
 roadmap is maintained as `ROADMAP.md` in the documentation directory. When comparing

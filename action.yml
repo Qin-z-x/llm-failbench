@@ -1,0 +1,77 @@
+name: "FailBench LLM failure probes"
+description: "Run deterministic, judge-free failure probes against an OpenAI-compatible endpoint, optionally gate against a baseline, and generate the static report."
+author: "FailBench contributors"
+branding:
+  icon: "alert-triangle"
+  color: "orange"
+
+inputs:
+  base-url:
+    description: "OpenAI-compatible API base URL, e.g. https://api.openai.com/v1"
+    required: true
+  model:
+    description: "Model name to test"
+    required: true
+  api-key-env:
+    description: "Name of the environment variable that holds the API key"
+    required: false
+    default: "OPENAI_API_KEY"
+  class:
+    description: "Optional failure-class filter, e.g. hallucination"
+    required: false
+  limit:
+    description: "Optional maximum number of probes to run"
+    required: false
+  out:
+    description: "Output directory, relative to the caller's workspace"
+    required: false
+    default: "failbench-results"
+  baseline:
+    description: "Optional path to a baseline results.json; when set, the action fails on regressions"
+    required: false
+  report:
+    description: "Generate the static dashboard after the run (true/false)"
+    required: false
+    default: "true"
+
+outputs:
+  results-path:
+    description: "Path to the produced results.json"
+    value: ${{ steps.run.outputs.results-path }}
+  site-path:
+    description: "Path to the generated site/index.html when report is true"
+    value: ${{ steps.run.outputs.site-path }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run FailBench probes
+      id: run
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      env:
+        FB_BASE_URL: ${{ inputs.base-url }}
+        FB_MODEL: ${{ inputs.model }}
+        FB_KEY_ENV: ${{ inputs.api-key-env }}
+        FB_CLASS: ${{ inputs.class }}
+        FB_LIMIT: ${{ inputs.limit }}
+        FB_OUT: ${{ inputs.out }}
+        FB_BASELINE: ${{ inputs.baseline }}
+        FB_REPORT: ${{ inputs.report }}
+      run: |
+        set -euo pipefail
+        OUT_DIR="${GITHUB_WORKSPACE}/${FB_OUT}"
+        mkdir -p "${OUT_DIR}"
+        args=(run --provider openai --base-url "${FB_BASE_URL}" --model "${FB_MODEL}"
+              --api-key-env "${FB_KEY_ENV}" --out "${OUT_DIR}")
+        if [ -n "${FB_CLASS}" ]; then args+=(--class "${FB_CLASS}"); fi
+        if [ -n "${FB_LIMIT}" ]; then args+=(--limit "${FB_LIMIT}"); fi
+        python3 -m failbench "${args[@]}"
+        echo "results-path=${OUT_DIR}/results.json" >> "${GITHUB_OUTPUT}"
+        if [ "${FB_REPORT}" = "true" ]; then
+          python3 -m failbench report --results "${OUT_DIR}" --out "${OUT_DIR}/site" --results-md "${OUT_DIR}/RESULTS.md"
+          echo "site-path=${OUT_DIR}/site/index.html" >> "${GITHUB_OUTPUT}"
+        fi
+        if [ -n "${FB_BASELINE}" ]; then
+          python3 -m failbench gate --baseline "${GITHUB_WORKSPACE}/${FB_BASELINE}" --current "${OUT_DIR}/results.json"
+        fi

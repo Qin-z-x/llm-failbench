@@ -1,12 +1,12 @@
 {
   "schema": 1,
-  "run_id": "20261124T024302Z-mock",
+  "run_id": "20261124T030418Z-mock",
   "provider": "mock",
   "model": "failbench-mock-1",
   "base_url": null,
-  "suite_version": "0.1.1",
-  "started_at": "2026-11-24T02:43:02Z",
-  "finished_at": "2026-11-24T02:43:02Z",
+  "suite_version": "0.2.0",
+  "started_at": "2026-11-24T03:04:18Z",
+  "finished_at": "2026-11-24T03:04:18Z",
   "environment": {
     "python": "3.13.15",
     "platform": "Windows"

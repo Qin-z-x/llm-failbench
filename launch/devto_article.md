@@ -16,7 +16,7 @@ LLM-as-judge has genuine uses, but as a regression test it is expensive, variabl
 
 A response should get the same verdict every time, and anyone should be able to recompute it offline. FailBench scores only with written-down mechanical rules: the same recorded response re-scored later produces the same result with no network and no API key. Failures report expected versus found rather than a bare boolean, and provider exceptions are errors, never failures, so infrastructure problems cannot lower a pass rate.
 
-The evidence atlas backs its 110 failure-mode records with a real source URL, optional popularity metrics, a short exact quote when verifiable, and a status of `cited`; `tested` requires a real model run. Probes and evidence records share the same ten-class vocabulary, so a reader can move from a probe to its class's public reports; per-probe evidence ids are not populated in v0.1.0.
+The evidence atlas backs its 110 failure-mode records with a real source URL, optional popularity metrics, a short exact quote when verifiable, and a status of `cited`; `tested` requires a real model run. Probes and evidence records share the same ten-class vocabulary, so a reader can move from a probe to its class's public reports; per-probe evidence ids are not populated in v0.2.0.
 
 ## Design
 

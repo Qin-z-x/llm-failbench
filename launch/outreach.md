@@ -1,6 +1,6 @@
 # Outreach targets (draft, not sent)
 
-**Project:** FailBench v0.1.0 (pre-release) — *The evidence-backed, judge-free failure probe kit for LLMs.*
+**Project:** FailBench v0.2.0 (pre-release) — *The evidence-backed, judge-free failure probe kit for LLMs.*
 **Prepared:** 2026-11-24 · **Owner:** repo owner (W7 draft; nothing here has been sent)
 **Scope:** 3 real venues — a publication, an AI-engineering publication/podcast, and an ML podcast — whose
 official pages I verified this session. **Nothing here has been emailed, posted, or submitted.**
@@ -19,7 +19,7 @@ official pages I verified this session. **Nothing here has been emailed, posted,
 3. **No mass DMs, no copy-paste blasts.** One venue per message, tailored; never BCC a list.
 4. **No press-release spam.** These are short, personal pitches with one idea each — not "FOR IMMEDIATE
    RELEASE" announcements.
-5. **Disclose pre-release status honestly.** Say v0.1.0 is pre-release, that the committed demo results come
+5. **Disclose pre-release status honestly.** Say v0.2.0 is pre-release, that the committed demo results come
    from the deterministic mock provider (not measurements of any real model), and that no live model endpoint
    was used during the build. Never imply users, traction, coverage, stars, or benchmark numbers.
 6. **Owner sends from the owner's own address, under the owner's own identity.** No fake accounts, no
@@ -69,7 +69,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   > tell you." The argument is practical, not promotional: LLM-as-judge scores are useful but expensive and
   > contestable, so a deterministic probe suite with mechanical pass/fail rules is a complementary regression
   > tool, and its limits (it measures failures, not quality) are as interesting as its uses. I built a small
-  > open-source artifact along these lines, FailBench (https://github.com/Qin-z-x/llm-failbench), now v0.1.0 pre-release; its committed
+  > open-source artifact along these lines, FailBench (https://github.com/Qin-z-x/llm-failbench), now v0.2.0 pre-release; its committed
   > demo results come from a deterministic mock provider, not real model measurements, and I'd disclose that
   > in the piece. I'm happy to send an outline or full draft.
 - **Status:** **Open to unsolicited pitches via the official form** (verified). This is a writing pitch, not
@@ -94,7 +94,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   > Hi — tip for the Latent Space team: I built an open-source probe kit, FailBench (https://github.com/Qin-z-x/llm-failbench), that runs
   > deterministic, judge-free failure probes across 10 LLM failure classes with fully mechanical scoring — no
   > LLM judge, no third-party Python dependencies, and an offline mock-provider demo so you can see the
-  > outputs without an API key. It's v0.1.0 pre-release; the committed demo results are from the mock
+  > outputs without an API key. It's v0.2.0 pre-release; the committed demo results are from the mock
   > provider, not real model measurements. Given your coverage of benchmark and eval problems, a "no judge,
   > no vibes: what deterministic probes can catch" item might fit. Happy to answer questions or share a
   > short walkthrough; no coverage expected.
@@ -120,7 +120,7 @@ Every row below was checked with direct HTTPS requests from the build machine on
   > Hi — using your contact form's "Recommend a Guest" option: I'd like to suggest a conversation about
   > judge-free evaluation: deterministic, mechanically scored probes as a regression tool for LLM failure
   > modes, where they help, and where LLM-as-judge is still needed. I'm happy to appear as maintainer, or to
-  > suggest a different guest if that is a better fit; I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a v0.1.0
+  > suggest a different guest if that is a better fit; I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a v0.2.0
   > pre-release open-source probe kit covering 10 failure classes with no LLM judges and an offline mock
   > demo — its committed results are from the deterministic mock provider, not real model measurements. If
   > it's not a fit for the show, no problem at all; I appreciate the work you all do.

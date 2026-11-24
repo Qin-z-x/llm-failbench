@@ -291,7 +291,7 @@ class RunnerContractTest(unittest.TestCase):
             doc["base_url"] is None or isinstance(doc["base_url"], str),
             "base_url must be a string or null",
         )
-        self.assertEqual(doc["suite_version"], "0.1.1")
+        self.assertEqual(doc["suite_version"], "0.2.0")
 
         for field in ("started_at", "finished_at"):
             self.assertTrue(
@@ -988,7 +988,7 @@ class RunnerContractTest(unittest.TestCase):
                 self.assert_results_contract(doc)
                 _assert_run_id(self, doc["run_id"], "scripted")
                 self.assertEqual(doc["run_id"].split("-", 1)[1], "scripted")
-                self.assertEqual(doc["suite_version"], "0.1.1")
+                self.assertEqual(doc["suite_version"], "0.2.0")
                 self.assertEqual(doc["provider"], "scripted")
                 self.assertEqual(doc["model"], "scripted-1")
                 self.assertTrue(_is_utc_timestamp(doc["started_at"]))

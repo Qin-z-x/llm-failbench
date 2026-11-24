@@ -10,6 +10,24 @@ version.
 
 No changes yet.
 
+## [0.2.0] - 2026-11-24
+
+### Added
+
+- Composite GitHub Action (`action.yml`) to run a probe suite against any
+  OpenAI-compatible endpoint in CI, optionally gate on regressions against a
+  committed baseline, and upload the report. Documented in
+  [`docs/GITHUB_ACTION.md`](docs/GITHUB_ACTION.md).
+- README status badges (CI, release, license, live dashboard, Discussions) and a
+  Community section pointing at Discussions, issue templates and the dashboard.
+- Community seed content: GitHub Discussions ("Share your FailBench results",
+  "Probe requests and evidence submissions") and `good first issue` tasks under
+  the repository's issue templates.
+
+### Changed
+
+- Documentation and generated artifacts bumped to 0.2.0.
+
 ## [0.1.1] - 2026-11-24
 
 ### Fixed

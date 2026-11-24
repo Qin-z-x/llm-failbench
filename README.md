@@ -2,6 +2,12 @@
 
 **The evidence-backed, judge-free failure probe kit for LLMs.**
 
+[![CI](https://github.com/Qin-z-x/llm-failbench/actions/workflows/ci.yml/badge.svg)](https://github.com/Qin-Z-x/llm-failbench/actions/workflows/ci.yml)
+[![release](https://img.shields.io/github/v/release/Qin-Z-x/llm-failbench?sort=semver)](https://github.com/Qin-Z-x/llm-failbench/releases)
+[![license](https://img.shields.io/github/license/Qin-Z-x/llm-failbench)](LICENSE)
+[![dashboard](https://img.shields.io/badge/dashboard-live-blue)](https://qin-z-x.github.io/llm-failbench/)
+[![discussions](https://img.shields.io/github/discussions/Qin-Z-x/llm-failbench)](https://github.com/Qin-Z-x/llm-failbench/discussions)
+
 FailBench is an open benchmark and evidence atlas for LLM failure modes. It ships
 100 deterministic probes across ten failure classes, each probe scored by a
 mechanical rule instead of an LLM judge, and a curated atlas of publicly reported
@@ -11,7 +17,7 @@ path and a self-contained static dashboard.
 
 Repository: <https://github.com/Qin-z-x/llm-failbench>
 
-**Status: pre-release v0.1.0.** The committed demo results were produced by the
+**Status: pre-release v0.2.0.** The committed demo results were produced by the
 deterministic `mock` provider shipped with the kit, not by a live model
 endpoint. No live-model numbers are claimed anywhere in this repository. From
 [`docs/CONTRACT.md`](docs/CONTRACT.md) section 1:
@@ -52,7 +58,7 @@ scoring, so a result is reproducible from the recorded artifact. Probes and
 public reports are organized under the same ten failure classes, so each class
 pairs what practitioners reported with a checkable instance of the behaviour;
 per-probe evidence ids are reserved for future grounding and are empty in
-v0.1.0.
+v0.2.0.
 
 ## Quick-start demo
 
@@ -77,7 +83,7 @@ provider; see [docs/RESULTS.md](docs/RESULTS.md) for the generated report.
 ## Suite at a glance
 
 All volatile counts live in this one table. Counts are from the repository at the
-v0.1.0 build snapshot; regenerate the report to refresh them.
+v0.2.0 build snapshot; regenerate the report to refresh them.
 
 | Item | Count | Notes |
 | --- | ---: | --- |
@@ -139,6 +145,24 @@ Set the variable first: PowerShell
 other endpoints, see the endpoint table and environment-variable examples in
 [docs/QUICKSTART.md](docs/QUICKSTART.md). Use `--class CLASS` and `--limit N` to
 run a subset while you are validating an integration.
+
+## Use it as a GitHub Action
+
+Run the suite against any OpenAI-compatible endpoint in a workflow, optionally gate
+on regressions against a committed baseline, and upload the report:
+
+```yaml
+      - uses: Qin-Z-x/llm-failbench@v0.2.0
+        with:
+          base-url: ${{ secrets.LLM_BASE_URL }}
+          model: ${{ vars.LLM_MODEL }}
+          baseline: baselines/prod/results.json
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+```
+
+Full inputs, outputs, caveats and cost notes are documented in
+[docs/GITHUB_ACTION.md](docs/GITHUB_ACTION.md).
 
 ## CI gate
 
@@ -226,7 +250,7 @@ README.
   probe and re-running the gates, not by silently loosening the scorer.
 - **The committed demo is not a measurement.** It exercises the pipeline with a
   deterministic mock provider. It says nothing about the quality of any model.
-- **Per-class sample size is small.** At v0.1.0 each class has 10 probes, so a
+- **Per-class sample size is small.** At v0.2.0 each class has 10 probes, so a
   single probe moves that class's pass rate by 10 percentage points. Treat class
   rates as diagnostics for regressions, not as precise capability estimates.
 - **No statistical confidence claims.** FailBench is a regression and smoke-test
@@ -241,6 +265,14 @@ README.
 - **Evidence popularity is not prevalence.** Atlas metrics measure public
   attention, not how often a failure occurs in the wild or how severe it is.
 
+## Community
+
+- **Discussions:** questions, probe requests, and "share your results" posts are
+  welcome in [GitHub Discussions](https://github.com/Qin-Z-x/llm-failbench/discussions).
+- **Evidence and probes:** submit a real public report or a deterministic probe via
+  the issue templates; see [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Dashboard:** <https://qin-z-x.github.io/llm-failbench/>
+
 ## Citation, license and contributing
 
 If you use FailBench, cite it as described in [CITATION.cff](CITATION.cff).
@@ -251,7 +283,7 @@ A generic reference:
   title        = {FailBench: the evidence-backed, judge-free failure probe kit for LLMs},
   author       = {{llm-failbench contributors}},
   year         = {2026},
-  version      = {0.1.0},
+  version      = {0.2.0},
   note         = {Open-source software; citation metadata in CITATION.cff}
 }
 ```

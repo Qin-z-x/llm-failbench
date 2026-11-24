@@ -36,7 +36,7 @@ python -m failbench list
 python -m failbench list --class hallucination
 ```
 
-The summary line at the v0.1.0 build snapshot was
+The summary line at the v0.2.0 build snapshot was
 `100 probe(s) in 10 class(es)`. The class names are `hallucination`,
 `instruction_following`, `context_retrieval`, `reasoning_consistency`,
 `sycophancy`, `structured_output`, `multilingual`, `safety_consistency`,
@@ -54,7 +54,7 @@ python -m failbench validate
 ```
 
 Every probe and evidence record is checked against the schema in
-[CONTRACT.md](CONTRACT.md). At the v0.1.0 build snapshot the output ended with
+[CONTRACT.md](CONTRACT.md). At the v0.2.0 build snapshot the output ended with
 `OK: 100 probes, 110 evidence records, 0 errors`. Use `--strict` to treat
 warnings as errors and `--json` for the raw report.
 

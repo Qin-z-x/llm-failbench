@@ -6,7 +6,7 @@
 > third-party rule trackers fetched on 2026-11-24, not from Reddit directly, so treat it as a strong prior and the
 > live sidebar as the authority.
 
-**State this file assumes (from `docs/CONTRACT.md`):** FailBench v0.1.0 pre-release; code MIT, data CC-BY-4.0;
+**State this file assumes (from `docs/CONTRACT.md`):** FailBench v0.2.0 pre-release; code MIT, data CC-BY-4.0;
 the committed demo results come from the deterministic **mock** provider and are **not** measurements of any real model;
 no live model endpoint existed during the build; no users, stars, testimonials, downloads, or adoption claims exist.
 Nothing here is auto-posted. `https://github.com/Qin-z-x/llm-failbench` is the only substitution token — substitute it after the repository is public
@@ -27,7 +27,7 @@ do not paste one into two subs.
       exist and work on the published tree. If a command changed, edit the draft to match the README.
 - [ ] The published README / `docs/RESULTS.md` / dashboard still label the demo as mock-provider output; the honest-status
       paragraph in the draft must not drift from it.
-- [ ] The counts are frozen for v0.1.0 and already appear in the drafts: 100 probes (10 per class) and 110 cited evidence records (54 HN, 46 arXiv, 10 GitHub issues); the committed demo is 100 probes: 64 pass / 34 fail / 2 error, mock provider only. If `README.md`'s count table differs at posting time, update the numbers before posting.
+- [ ] The counts are frozen for v0.2.0 and already appear in the drafts: 100 probes (10 per class) and 110 cited evidence records (54 HN, 46 arXiv, 10 GitHub issues); the committed demo is 100 probes: 64 pass / 34 fail / 2 error, mock provider only. If `README.md`'s count table differs at posting time, update the numbers before posting.
 - [ ] Re-read the official sub rules in a browser (URLs in each draft's rules block and in §4). Rules change.
 - [ ] Search the sub before posting: no earlier FailBench post, no duplicate link.
 - [ ] Owner is available to answer in the thread for several hours, and will correct any wrong claim publicly.
@@ -52,23 +52,23 @@ link in the body — not a bare link post. Verify the current tag/flair conventi
 **Title (primary, 123 characters):**
 
 ```
-[P] FailBench v0.1.0: deterministic, judge-free probes for 10 LLM failure classes, with an evidence atlas of public sources
+[P] FailBench v0.2.0: deterministic, judge-free probes for 10 LLM failure classes, with an evidence atlas of public sources
 ```
 
 **Alternative titles (both under 300 characters; re-count after editing):**
 
 ```
-[P] FailBench: a judge-free LLM failure-probe suite with a sourced evidence atlas (v0.1.0 pre-release, code + data open)
+[P] FailBench: a judge-free LLM failure-probe suite with a sourced evidence atlas (v0.2.0 pre-release, code + data open)
 ```
 
 ```
-[P] FailBench v0.1.0 - mechanical failure probes for LLM endpoints, every evidence record backed by a public source
+[P] FailBench v0.2.0 - mechanical failure probes for LLM endpoints, every evidence record backed by a public source
 ```
 
 **Body — copy between the markers (450 words as drafted, within the 250–450 cap; recount if you edit):**
 
 <!-- BODY:START rml -->
-I've been building FailBench, an open benchmark plus evidence atlas for LLM failure modes. It's v0.1.0, a pre-release, and I'm posting it here mainly to get the methodology picked apart.
+I've been building FailBench, an open benchmark plus evidence atlas for LLM failure modes. It's v0.2.0, a pre-release, and I'm posting it here mainly to get the methodology picked apart.
 
 **What it is.** The benchmark half is a corpus of 100 deterministic probes across ten failure classes (10 per class): hallucination, instruction following, context retrieval, reasoning consistency, sycophancy, structured output, multilingual, safety consistency, agentic reliability, and determinism/calibration. Each probe is a static prompt with exactly one mechanical pass condition: a substring or regex match, JSON-schema validation, a numeric comparison within tolerance, or an all-of combination. There are no LLM judges in the scoring path, no model-written rubric, and no human grading. The atlas half catalogues 110 publicly reported failure modes (54 HN threads, 46 arXiv papers, 10 GitHub issues), and every record links to the public source it came from. Records are marked `cited` unless a real model run produced them.
 
@@ -110,7 +110,7 @@ is the safer choice for a tool announcement). Do not flair it as News or Discuss
 **Title (primary, 126 characters):**
 
 ```
-FailBench v0.1.0: a judge-free failure-probe kit for local models - offline mock demo first, then any OpenAI-compatible server
+FailBench v0.2.0: a judge-free failure-probe kit for local models - offline mock demo first, then any OpenAI-compatible server
 ```
 
 **Alternative titles (both under 300 characters):**
@@ -126,7 +126,7 @@ FailBench: run a judge-free LLM failure suite offline, then point it at your own
 **Body — copy between the markers (450 words as drafted, within the 250–450 cap; recount if you edit):**
 
 <!-- BODY:START localllama -->
-I built FailBench v0.1.0, an open, judge-free failure-probe kit for LLMs, and this sub is the right place to ask what it gets wrong on local setups.
+I built FailBench v0.2.0, an open, judge-free failure-probe kit for LLMs, and this sub is the right place to ask what it gets wrong on local setups.
 
 The idea is simple: a benchmark plus an evidence atlas. The benchmark is 100 deterministic probes across ten failure classes, 10 per class (hallucination, instruction following, context retrieval, reasoning consistency, sycophancy, structured output, multilingual, safety consistency, agentic reliability, determinism/calibration). Every probe is a static prompt plus one mechanical pass condition — substring, regex, JSON schema, or numeric tolerance — so there is no LLM judge in the loop and no judge cost per run. All 110 evidence records link to a public source: 54 HN threads, 46 arXiv papers, 10 GitHub issues. Code is MIT, data is CC-BY-4.0, and the Python is stdlib-only: no install, no third-party packages.
 
@@ -179,7 +179,7 @@ FailBench: judge-free LLM failure probes plus a CI regression gate for any OpenA
 **Alternative titles (both under 300 characters):**
 
 ```
-A judge-free eval suite with an exit-code CI gate - would this fit your LLM regression pipeline? (FailBench v0.1.0 preview)
+A judge-free eval suite with an exit-code CI gate - would this fit your LLM regression pipeline? (FailBench v0.2.0 preview)
 ```
 
 ```
@@ -189,7 +189,7 @@ FailBench: deterministic LLM failure probes you can run as a CI regression gate,
 **Body — copy between the markers (423 words as drafted, within the 250–450 cap; recount if you edit):**
 
 <!-- BODY:START llmdevs -->
-I'm building FailBench v0.1.0, a judge-free failure-probe suite for LLM endpoints, and I'd rather have eval-engineering feedback than attention: does this fit a CI pipeline you would actually run?
+I'm building FailBench v0.2.0, a judge-free failure-probe suite for LLM endpoints, and I'd rather have eval-engineering feedback than attention: does this fit a CI pipeline you would actually run?
 
 The shape: 100 deterministic probes across ten failure classes, 10 per class (hallucination, instruction following, context retrieval, reasoning consistency, sycophancy, structured output, multilingual, safety consistency, agentic reliability, determinism/calibration). Each probe is a static prompt plus one mechanical scorer — substring, regex, JSON-schema validation, or numeric tolerance — declared in a JSON file. No LLM judge anywhere means no judge prompt to version, no judge cost per run, and no judge-model drift between runs. A pass or fail is auditable from the scorer rule plus the stored response, and raw responses are kept so a run can be re-scored or replayed offline.
 

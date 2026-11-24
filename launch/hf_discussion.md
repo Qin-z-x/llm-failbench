@@ -19,7 +19,7 @@ guidelines ask users to "improve the discussion" and not to "post spam", and
 ## Title options
 
 1. `FailBench: an open, judge-free failure probe kit for LLMs (pre-release feedback wanted)`
-2. `Deterministic, judge-free LLM failure probes: looking for feedback on FailBench v0.1.0`
+2. `Deterministic, judge-free LLM failure probes: looking for feedback on FailBench v0.2.0`
 
 ## Category
 
@@ -29,13 +29,13 @@ Show and Tell
 
 Hi all,
 
-I am sharing FailBench v0.1.0, a pre-release open-source project: an evidence-backed, judge-free failure probe kit for LLMs. The goal is to test failure modes with written-down mechanical rules instead of a second model's judgment, and to source every failure claim.
+I am sharing FailBench v0.2.0, a pre-release open-source project: an evidence-backed, judge-free failure probe kit for LLMs. The goal is to test failure modes with written-down mechanical rules instead of a second model's judgment, and to source every failure claim.
 
 Why bother: LLM-as-judge evaluations are useful, but they add cost and variance, and a rubric change can move scores without the model changing. FailBench probes are static JSON records. Each has one fixed prompt and one mechanical pass condition (a required substring, exact match, regex, JSON-schema subset, numeric tolerance, or an all-of combination), so the same response always gets the same verdict. Every failure reports the concrete mismatch, expected versus found, and the 110-record evidence atlas links each failure mode to a public source (54 Hacker News threads, 46 arXiv papers, 10 GitHub issues; popularity counts are 2026-11-24 snapshots).
 
 The kit ships 100 deterministic probes across ten failure classes — 10 per class, with a severity mix of 5 critical, 34 high, 43 medium and 18 low: hallucination, instruction following, context retrieval, reasoning consistency, sycophancy, structured output, multilingual behaviour, safety consistency, agentic reliability, and determinism/calibration. It includes a runner for any OpenAI-compatible `/chat/completions` endpoint, an offline deterministic mock demo that runs in seconds with no network, replayable raw logs, a static dashboard, and a CI regression gate. A full pass against a hosted endpoint typically takes a minute or two. Scoring is stdlib-only Python, with no LLM judge and no third-party dependencies; code is MIT and data is CC-BY-4.0.
 
-Honest status: v0.1.0 is a pre-release. The committed demo run covers all 100 probes: 64 pass, 34 fail, 2 error, all from the deterministic mock provider. These are not measurements of any real model, and no live model endpoint was available during the build; users have to run the kit on their own endpoint for real numbers. There is no public leaderboard yet, the probe corpus is small and growing, and evidence collection has so far been done by one team, so independent verification and corrections are especially useful.
+Honest status: v0.2.0 is a pre-release. The committed demo run covers all 100 probes: 64 pass, 34 fail, 2 error, all from the deterministic mock provider. These are not measurements of any real model, and no live model endpoint was available during the build; users have to run the kit on their own endpoint for real numbers. There is no public leaderboard yet, the probe corpus is small and growing, and evidence collection has so far been done by one team, so independent verification and corrections are especially useful.
 
 If you have an HF-hosted model behind an OpenAI-compatible endpoint, I would like to see what the probes report for it, including the failures. Corrections to scoring rules, evidence links, or probe prompts are welcome, and so are new probes with a defensible pass condition. Please share run configs when you report results so others can reproduce them.
 

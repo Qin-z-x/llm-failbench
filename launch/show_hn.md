@@ -73,7 +73,7 @@ Most benchmark numbers depend on an LLM judge or a model-applied rubric, so the 
 
 Why evidence-backed
 
-Each atlas record links to a public source (an HN thread, arXiv paper, GitHub issue, or blog post) and is marked "cited" unless a real model run produced it. Quotes are short and verbatim or left empty when the exact text is unavailable; the dataset rules forbid invented citations, metrics, and user quotes. Probes and atlas records share the same ten-class vocabulary, and the probe schema supports evidence ids, but in v0.1.0 the link between them is at class level, not per-probe citation.
+Each atlas record links to a public source (an HN thread, arXiv paper, GitHub issue, or blog post) and is marked "cited" unless a real model run produced it. Quotes are short and verbatim or left empty when the exact text is unavailable; the dataset rules forbid invented citations, metrics, and user quotes. Probes and atlas records share the same ten-class vocabulary, and the probe schema supports evidence ids, but in v0.2.0 the link between them is at class level, not per-probe citation.
 
 One probe, described by its shape
 
@@ -104,7 +104,7 @@ Post this (rewritten in your own voice) as the author's first comment, or use it
 ```
 Author here. Some context I'd rather state up front than have people dig for.
 
-This is v0.1.0, a pre-release. The committed demo results come from a deterministic mock provider, not a live model. No model endpoint was available while I was building this, so there are no real-model numbers in the release. Run it on your own endpoint if you want a number that means anything.
+This is v0.2.0, a pre-release. The committed demo results come from a deterministic mock provider, not a live model. No model endpoint was available while I was building this, so there are no real-model numbers in the release. Run it on your own endpoint if you want a number that means anything.
 
 The mechanical scoring is a deliberate trade. No judges means the result is auditable, cheap, and stable, but it also means a probe can be passed by emitting the expected string. A benchmark you can inspect is a benchmark you can game. I've treated it as a regression gate for a single endpoint over time, not as a leaderboard, and the results schema stores raw responses so failures can be re-scored and replayed offline.
 
@@ -158,7 +158,7 @@ There is no verified data behind any specific "best time" claim, including the u
 - [ ] On a clean machine with plain Python (3.9+, no extra packages), the offline demo runs: `python -m failbench run --provider mock --demo --out results/demo`.
 - [ ] Committed demo results are labeled as mock-provider output, and `docs/RESULTS.md` / README / dashboard carry the honest-status paragraph.
 - [ ] The data and code licences are stated (code MIT, data CC-BY-4.0).
-- [ ] The numbers match the frozen v0.1.0 report table: 100 probes (10 per class; severity 5 critical / 34 high / 43 medium / 18 low), 110 cited evidence records (54 HN / 46 arXiv / 10 GitHub issues), and the committed mock demo run (100 probes: 64 pass / 34 fail / 2 error). Re-check `README.md` before posting if the repo changed.
+- [ ] The numbers match the frozen v0.2.0 report table: 100 probes (10 per class; severity 5 critical / 34 high / 43 medium / 18 low), 110 cited evidence records (54 HN / 46 arXiv / 10 GitHub issues), and the committed mock demo run (100 probes: 64 pass / 34 fail / 2 error). Re-check `README.md` before posting if the repo changed.
 - [ ] The title, body, and first comment are written by the owner personally, not pasted from this file, in line with HN's current guidance against generated text and automated posting.
 - [ ] Every factual claim in the post is supported by the repository: no invented users, stars, testimonials, benchmark numbers, or adoption claims; no "first / only / best" language.
 - [ ] No request for upvotes, comments, or stars appears anywhere in the post or in any channel around it.

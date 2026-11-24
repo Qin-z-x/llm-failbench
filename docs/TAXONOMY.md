@@ -1,6 +1,6 @@
 # FailBench Failure Taxonomy (v1)
 
-Status: version 0.1.0. This document is the prose description of the fixed
+Status: version 0.2.0. This document is the prose description of the fixed
 ten-class vocabulary defined in [`docs/CONTRACT.md`](./CONTRACT.md) §3. The
 class names and their two/three-letter prefixes are stable for the 0.1.x
 series: probe IDs (`ctx_needle_middle_01`), evidence IDs (`ev_ctx_0001`) and result

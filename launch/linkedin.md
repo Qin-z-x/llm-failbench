@@ -19,7 +19,7 @@ python -m failbench run --provider openai --base-url <YOUR_BASE_URL> --api-key-e
 
 The offline mock demo runs in seconds with no network; point the runner at any OpenAI-compatible endpoint for your own model's numbers, and use the CI gate to compare runs against a baseline. A full pass typically takes a minute or two against a hosted endpoint, depending on latency.
 
-Status: v0.1.0 pre-release. The committed demo run covers all 100 probes — 64 pass, 34 fail, 2 error — from the deterministic mock provider, not measurements of any real model; no live model endpoint was available during the build. Run it on your own endpoint for real numbers.
+Status: v0.2.0 pre-release. The committed demo run covers all 100 probes — 64 pass, 34 fail, 2 error — from the deterministic mock provider, not measurements of any real model; no live model endpoint was available during the build. Run it on your own endpoint for real numbers.
 
 Repository: https://github.com/Qin-z-x/llm-failbench
 

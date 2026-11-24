@@ -4,7 +4,7 @@ Drafts only — owner posts manually from their own account.
 
 - 8 tweets below, each within the 280-character limit. Character counts are drafting annotations, not part of the tweet text; they are exact for the text as written (including line breaks, counting `https://github.com/Qin-z-x/llm-failbench` as 12 characters).
 - `https://github.com/Qin-z-x/llm-failbench` must be replaced with the real public repository URL at posting time. X wraps links to 23 characters, so a substituted URL shortens the effective count rather than growing it; tweet 8 stays under 280 even if the URL is counted literally.
-- The thread describes the project as v0.1.0 pre-release. If the repository is not public yet, do not post; there is nothing to try.
+- The thread describes the project as v0.2.0 pre-release. If the repository is not public yet, do not post; there is nothing to try.
 - Do not claim human-only authorship. The project was built with AI assistance, and tweet 1 says so plainly; disclose it again if asked. Do not imply that committed demo results are real-model measurements.
 - No engagement bait appears below: no requests to like, retweet, follow, star, or vote. Do not add any before posting.
 
@@ -13,7 +13,7 @@ Drafts only — owner posts manually from their own account.
 ## Tweet 1/8 — hook
 
 ```
-Most LLM benchmarks hand you a score and nothing else. I wanted pass/fail rules I could read, re-run, and diff over time. So we built FailBench: deterministic failure probes for LLMs, no judge models, every atlas claim sourced. v0.1.0, pre-release. Built with AI assistance.
+Most LLM benchmarks hand you a score and nothing else. I wanted pass/fail rules I could read, re-run, and diff over time. So we built FailBench: deterministic failure probes for LLMs, no judge models, every atlas claim sourced. v0.2.0, pre-release. Built with AI assistance.
 ```
 
 *Character count: 274 / 280*

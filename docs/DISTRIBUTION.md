@@ -4,7 +4,7 @@
 The repository owner (a human) publishes every item manually from their own accounts. The drafts in
 `launch/` are inputs for that human, not executable marketing automation.
 
-**Project state this plan assumes (verify at post time):** FailBench v0.1.0 pre-release, MIT code,
+**Project state this plan assumes (verify at post time):** FailBench v0.2.0 pre-release, MIT code,
 CC-BY-4.0 data, no users/stars/testimonials yet. The committed demo results were produced by the
 deterministic **mock** provider — they are *not* measurements of any real model; no live model
 endpoint was available during the build. Any public copy that mentions results must say this
@@ -45,7 +45,7 @@ Do not start the calendar until all of these are true:
       bad signal).
 - [ ] Labels created: `evidence-submission`, `probe-request`, `correction`, `bug`, `question`,
       `good-first-issue`, `release`.
-- [ ] Release `v0.1.0` is tagged with release notes that repeat the mock-demo disclaimer.
+- [ ] Release `v0.2.0` is tagged with release notes that repeat the mock-demo disclaimer.
 - [ ] Optional: a GitHub Pages deployment of `site/` — only if it is regenerated on release; a stale
       dashboard is worse than none.
 - [ ] **Baseline metrics snapshot** recorded (see §6), so day-14 deltas are real rather than guessed.
@@ -86,7 +86,7 @@ as fact.
 
 | Day | Channel | Owner action | Primary success signal (see §6) |
 |---|---|---|---|
-| 0 | Repo / release | Complete §2 gate; publish `v0.1.0`; record baseline metrics | CI green, release live, baseline recorded |
+| 0 | Repo / release | Complete §2 gate; publish `v0.2.0`; record baseline metrics | CI green, release live, baseline recorded |
 | 1 | Hacker News (Show HN) | Post using `launch/show_hn.md`; stay in the thread; answer every substantive question honestly within 48h. Do **not** ask for votes or share the link to solicit upvotes | Substantive methodological discussion; ≥1 reproducible bug/method critique |
 | 2 | X / Twitter | Post `launch/x_thread.md` thread; reply to questions; no engagement-bait follow-ups | Questions from practitioners; no fake amplification |
 | 3 | dev.to | Publish `launch/devto_article.md`; respond to comments | Substantive comments; corrections accepted |
@@ -290,5 +290,5 @@ The full per-URL verification ledger for the launch kit is in `launch/verificati
   clients even though the subreddit pages load, so the plan explicitly requires reading sub rules in
   a browser at post time instead of relying on cached copies.
 - This document makes no claim of achieved users, stars, downloads, or model measurements. Every
-  project claim refers to files in this repository or to the documented v0.1.0 scope; anything about
+  project claim refers to files in this repository or to the documented v0.2.0 scope; anything about
   future results is labeled as such.

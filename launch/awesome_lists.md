@@ -1,6 +1,6 @@
 # Awesome-list submissions (draft, not posted)
 
-**Project:** FailBench v0.1.0 (pre-release) — *The evidence-backed, judge-free failure probe kit for LLMs.*
+**Project:** FailBench v0.2.0 (pre-release) — *The evidence-backed, judge-free failure probe kit for LLMs.*
 **Prepared:** 2026-11-24 · **Owner:** repo owner (W7 draft; nothing here has been posted or emailed)
 **Scope:** 5 real awesome lists / community indexes where a judge-free LLM failure-probe benchmark can
 legitimately be submitted. Vvkmnn, danielrosehill and tensorchord are currently active; benchflow-ai is
@@ -80,7 +80,7 @@ sandbox, so repo identity/activity is evidenced by the `api.github.com/repos/…
   ```
   (12 words after the dash — under the 20-word cap. No badge, no emoji, no changing metric.)
 - **Suggested PR body (one paragraph):**
-  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a small MIT-licensed, stdlib-only Python project that packages deterministic, judge-free failure probes across 10 LLM failure classes with fully mechanical scoring, plus a runner, static dashboard, and CI regression gate. It is v0.1.0 pre-release and self-submitted; the shipped demo run uses a deterministic mock provider, not real model measurements. I added one entry under Benchmarks → General in alphabetical order and followed CONTRIBUTING.md. Happy to adjust the wording or move it to a different section if you prefer.
+  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a small MIT-licensed, stdlib-only Python project that packages deterministic, judge-free failure probes across 10 LLM failure classes with fully mechanical scoring, plus a runner, static dashboard, and CI regression gate. It is v0.2.0 pre-release and self-submitted; the shipped demo run uses a deterministic mock provider, not real model measurements. I added one entry under Benchmarks → General in alphabetical order and followed CONTRIBUTING.md. Happy to adjust the wording or move it to a different section if you prefer.
 - **Status:** **Accept PRs** (verified).
 - **Caveat:** CC0 list; a 12-word annotation with no ranking claims is the safe shape. No known blockers.
 
@@ -106,7 +106,7 @@ sandbox, so repo identity/activity is evidenced by the `api.github.com/repos/…
   | [FailBench](https://github.com/Qin-z-x/llm-failbench) | Judge-free, deterministic failure probes across 10 LLM failure classes; mechanical scoring, offline mock demo, CI regression gate. | ![](https://img.shields.io/github/stars/OWNER/REPO?style=social) | ![](https://img.shields.io/github/last-commit/OWNER/REPO) |
   ```
 - **Suggested PR body (one paragraph):**
-  > Hi Daniel — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes (mechanical scoring, no LLM judge), with an offline mock-provider demo and a CI regression gate. It is v0.1.0 pre-release and this is a self-submission; no real-model results are claimed. I added one row to the Benchmarks table in the existing column format and left data/repos.csv to your weekly Action. Happy to tweak the description or move the entry.
+  > Hi Daniel — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes (mechanical scoring, no LLM judge), with an offline mock-provider demo and a CI regression gate. It is v0.2.0 pre-release and this is a self-submission; no real-model results are claimed. I added one row to the Benchmarks table in the existing column format and left data/repos.csv to your weekly Action. Happy to tweak the description or move the entry.
 - **Status:** **Accept PRs** (README statement; no formal CONTRIBUTING file, so it is a smaller, informal list).
 - **Caveat:** small audience (29★) and no written review criteria — a "nice to have", not a priority. The
   repo has no license metadata even though the README says CC0; no action needed from us.
@@ -134,7 +134,7 @@ sandbox, so repo identity/activity is evidenced by the `api.github.com/repos/…
   | [FailBench](https://github.com/Qin-z-x/llm-failbench) | Deterministic, judge-free failure probes across 10 LLM failure classes; mechanical scoring, CI regression gate, offline mock demo. | ![GitHub Badge](https://img.shields.io/github/stars/OWNER/REPO.svg?style=flat-square) |
   ```
 - **Suggested PR body (one paragraph):**
-  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a small MIT-licensed, stdlib-only Python project that runs deterministic, judge-free failure probes (mechanical scoring, no LLM judge) across 10 LLM failure classes, with an offline mock-provider demo and a CI regression gate for OpenAI-compatible endpoints. It is v0.1.0 pre-release and self-submitted; the shipped demo results are from the mock provider, not real models. I added one alphabetically placed row to the LLMOps table, ran the star-badge/ToC/activity scripts, and signed off the commit. Happy to adjust or move it.
+  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), a small MIT-licensed, stdlib-only Python project that runs deterministic, judge-free failure probes (mechanical scoring, no LLM judge) across 10 LLM failure classes, with an offline mock-provider demo and a CI regression gate for OpenAI-compatible endpoints. It is v0.2.0 pre-release and self-submitted; the shipped demo results are from the mock provider, not real models. I added one alphabetically placed row to the LLMOps table, ran the star-badge/ToC/activity scripts, and signed off the commit. Happy to adjust or move it.
 - **Status:** **Accept PRs** (verified contributing.md; DCO sign-off required).
 - **Caveat:** this is a broad LLMOps list with a very large table and some self-submitted entries; a PR can
   take time. The star badge will show 0★ until the project has any — that is normal on this list but the
@@ -163,7 +163,7 @@ sandbox, so repo identity/activity is evidenced by the `api.github.com/repos/…
   - **[FailBench](https://github.com/Qin-z-x/llm-failbench)** — <https://github.com/Qin-z-x/llm-failbench> — judge-free, deterministic failure probes across 10 LLM failure classes; mechanical scoring, offline mock demo, and a CI regression gate. 🆕
   ```
 - **Suggested PR body (one paragraph):**
-  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes (mechanical scoring, no LLM judge), with a runner for any OpenAI-compatible endpoint, an offline mock-provider demo, and a CI regression gate. This is a self-submission and the project is v0.1.0 pre-release; the committed demo results come from the deterministic mock provider, not real model measurements. I added one entry to §5a (happy to move it to §6 if you think that fits better). I understand the list asks for evidence of external use, so if that bar is not met yet I'm happy to come back later.
+  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes (mechanical scoring, no LLM judge), with a runner for any OpenAI-compatible endpoint, an offline mock-provider demo, and a CI regression gate. This is a self-submission and the project is v0.2.0 pre-release; the committed demo results come from the deterministic mock provider, not real model measurements. I added one entry to §5a (happy to move it to §6 if you think that fits better). I understand the list asks for evidence of external use, so if that bar is not met yet I'm happy to come back later.
 - **Status:** **Accept PRs, but the list's own inclusion bar means this is a "come back later" until there is
   an external issue/PR, a third-party write-up, or organic stars.** Do not open this PR on launch day in the
   hope the maintainer waives the bar.
@@ -190,7 +190,7 @@ sandbox, so repo identity/activity is evidenced by the `api.github.com/repos/…
   | FailBench | (owner handle / org) | [FailBench](https://github.com/Qin-z-x/llm-failbench) | Judge-free, deterministic failure probes across 10 LLM failure classes with mechanical scoring, an offline mock demo, and a CI regression gate. (2026-11-24) |
   ```
 - **Suggested PR body (one paragraph):**
-  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes with mechanical scoring, a runner for OpenAI-compatible endpoints, an offline mock-provider demo, and a CI regression gate. This is v0.1.0 pre-release and a self-submission; the demo results are from the deterministic mock provider, not real model measurements. I added one row to Datasets or Benchmarks → General in the existing table format with the date appended. Happy to adjust wording or placement.
+  > Hi — I maintain FailBench (https://github.com/Qin-z-x/llm-failbench), an MIT-licensed, stdlib-only Python benchmark of deterministic, judge-free failure probes across 10 LLM failure classes with mechanical scoring, a runner for OpenAI-compatible endpoints, an offline mock-provider demo, and a CI regression gate. This is v0.2.0 pre-release and a self-submission; the demo results are from the deterministic mock provider, not real model measurements. I added one row to Datasets or Benchmarks → General in the existing table format with the date appended. Happy to adjust wording or placement.
 - **Status:** **Accepts PRs/issues per README (no CONTRIBUTING.md, no documented format) — treat as "maybe /
   optional".** The list has not been pushed to in a year and has a large open-issue backlog, so a PR may
   simply sit there.
