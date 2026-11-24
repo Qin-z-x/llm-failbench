@@ -265,6 +265,13 @@ README.
 - **Evidence popularity is not prevalence.** Atlas metrics measure public
   attention, not how often a failure occurs in the wild or how severe it is.
 
+## Related tools
+
+- [llm-json-doctor](https://github.com/Qin-Z-x/llm-json-doctor) - deterministic
+  repair and JSON Schema validation for malformed LLM structured output; the
+  companion mitigation tool for the `structured_output` failure class. It logs
+  every repair action and never invents missing values.
+
 ## Community
 
 - **Discussions:** questions, probe requests, and "share your results" posts are
