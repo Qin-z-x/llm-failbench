@@ -265,7 +265,7 @@ def make_results_doc(
         "provider": provider,
         "model": model,
         "base_url": None,
-        "suite_version": "0.1.0",
+        "suite_version": "0.1.1",
         "started_at": "2026-01-01T00:00:00Z",
         "finished_at": "2026-01-01T00:00:01Z",
         "environment": {"python": "3.13.15", "platform": "Windows"},

@@ -118,7 +118,7 @@ class CliTestCase(unittest.TestCase):
     def test_version_flag(self) -> None:
         proc = self.run_cmd(["--version"])
         self.assertEqual(proc.returncode, 0, combined(proc))
-        self.assertIn("0.1.0", proc.stdout)
+        self.assertIn("0.1.1", proc.stdout)
         self.assertIn("failbench", proc.stdout)
         self.assert_no_traceback(proc)
 

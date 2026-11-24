@@ -44,7 +44,7 @@ from .schema import (
 
 __all__ = ["render", "HONESTY_SENTENCE"]
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 #: Required verbatim honesty sentence (docs/CONTRACT.md section 1). Both the
 #: committed Markdown report and the generated site must contain this exact
@@ -3148,9 +3148,7 @@ def _render_markdown(payload: Dict[str, Any], warnings: List[str]) -> str:
     add("")
     add(
         "This build ships a demo run against the deterministic **mock provider** and a cited evidence "
-        "atlas. No live model endpoint was available to the build, so the committed demo numbers exercise "
-        "the pipeline rather than measure any model. To obtain real numbers, run the kit against your own "
-        "OpenAI-compatible endpoint (see below)."
+        "atlas. To obtain real numbers, run the kit against your own OpenAI-compatible endpoint (see below)."
     )
     add("")
     if warnings:

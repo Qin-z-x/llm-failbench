@@ -10,6 +10,26 @@ version.
 
 No changes yet.
 
+## [0.1.1] - 2026-11-24
+
+### Fixed
+
+- Generated `docs/RESULTS.md` no longer repeats the honesty sentence twice
+  (report generator de-duplicated); `site/index.html` regenerated.
+- `scripts/validate/check_links.py` now sends an honest, correct User-Agent
+  pointing at the real repository, and the checker version is 0.1.1.
+- `docs/ATLAS.md` references the verification tables by section number
+  (`section 10`, `10.3`) instead of an ambiguous "at the end of this file".
+- Version string bumped to 0.1.1 in package metadata, `CITATION.cff` and tests.
+
+### Added
+
+- Committed the QA and audit reports under `docs/reviews/`
+  (`QA_REPORT.md`, `CLAIMS_AUDIT.md`, `SAFETY_REVIEW.md`) for the v0.1.0
+  publishing candidate reviewed by the QA and audit workstreams.
+- Enabled GitHub Actions CI (green) and GitHub Pages deployment of the
+  self-contained dashboard at https://qin-z-x.github.io/llm-failbench/.
+
 ## [0.1.0] - 2026-11-24
 
 ### Added

@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
-USER_AGENT = "failbench-link-checker/0.1 (+https://github.com/llm-failbench/llm-failbench)"
+USER_AGENT = "failbench-link-checker/0.1.1 (+https://github.com/Qin-z-x/llm-failbench)"
 MAX_BODY_BYTES = 4096
 RETRY_WITH_GET_CODES = frozenset({400, 403, 405, 501})
 DEAD_RATIO_LIMIT = 0.05

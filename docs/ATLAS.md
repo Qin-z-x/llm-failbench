@@ -139,7 +139,7 @@ numbers in this release are **snapshots taken on 2026-11-24** (the records'
 ## 6. How the per-class sections are computed
 
 Each class section below is computed from the working tree at the time of
-writing (see the verification table at the end of this file):
+writing (see the verification tables in section 10):
 
 - **Evidence** = number of records whose `class` is the class, loaded from
   `data/evidence/*.jsonl`.
@@ -154,7 +154,7 @@ writing (see the verification table at the end of this file):
   Probe counts are computed from the probe files, not from this document.
 - **What current tooling measures** = a literature/tool survey; every URL in
   the coverage table (`TAXONOMY.md` §7) was fetched and HTTP-checked in this
-  session (see the verification tables).
+  session (see section 10.3).
 
 ## 7. What would change our mind
 
