@@ -8,6 +8,8 @@
 [![dashboard](https://img.shields.io/badge/dashboard-live-blue)](https://qin-z-x.github.io/llm-failbench/)
 [![discussions](https://img.shields.io/github/discussions/Qin-Z-x/llm-failbench)](https://github.com/Qin-Z-x/llm-failbench/discussions)
 
+> **If this is useful, a star or fork helps others find it.** It is a small, unaided project; stars/fork counts are the honest signal that keeps it maintained. No accounts, no telemetry, no paid promotion.
+
 FailBench is an open benchmark and evidence atlas for LLM failure modes. It ships
 100 deterministic probes across ten failure classes, each probe scored by a
 mechanical rule instead of an LLM judge, and a curated atlas of publicly reported
@@ -271,6 +273,11 @@ README.
   repair and JSON Schema validation for malformed LLM structured output; the
   companion mitigation tool for the `structured_output` failure class. It logs
   every repair action and never invents missing values.
+- [yixin-go](https://github.com/Qin-Z-x/yixin-go) - local-first Windows Go (weiqi/baduk) sparring partner built on KataGo + Human SL.
+- [llm-invisible-guard](https://github.com/Qin-Z-x/llm-invisible-guard) - detect and sanitize invisible-Unicode prompt injection (zero-width, bidi, Unicode-Tag smuggling).
+- [llm-exfil-guard](https://github.com/Qin-Z-x/llm-exfil-guard) - detect data exfiltration through rendered LLM output: image beacons, hidden content, remote loads.
+- [slopsquat-guard](https://github.com/Qin-Z-x/slopsquat-guard) - flag hallucinated / typosquatted PyPI and npm dependency names before you install them.
+- [regex-redos-guard](https://github.com/Qin-Z-x/regex-redos-guard) - ReDoS (catastrophic backtracking) risk detection for LLM-generated regexes, static + timed probes.
 
 ## Community
 
