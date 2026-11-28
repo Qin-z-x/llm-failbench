@@ -333,3 +333,4 @@ FailBench is not affiliated with any model vendor.
 ## 视频演示
 - B站：https://www.bilibili.com/video/BV1QAyokEyP （FailBench 4:46 演示）
 - 项目主页/在线索引：https://qin-z-x.github.io/llm-security-toolkit/ （安全系列）或 https://github.com/Qin-Z-x
+- B站长片演示《不用联网、不用注册：我电脑上这 3 个本地 AI 工具》：https://www.bilibili.com/video/BV1rv1WziEV8
